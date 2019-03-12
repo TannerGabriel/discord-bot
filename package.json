@@ -1,0 +1,24 @@
+{
+  "name": "music-bot",
+  "version": "1.0.0",
+  "repository": "https://github.com/TannerGabriel/discord-music-bot.git",
+  "description": "A simple discord music bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "music",
+    "bot"
+  ],
+  "author": "Gabriel Tanner",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "ffmpeg": "0.0.4",
+    "ffmpeg-binaries": "^4.0.0",
+    "opusscript": "0.0.6",
+    "ytdl-core": "^0.29.1"
+  }
+}
