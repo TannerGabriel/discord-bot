@@ -2,20 +2,19 @@ module.exports = {
 	name: 'kick',
 	description: 'Kick a player',
 	execute(message) {
-		const permissions = message.member.voiceChannel.permissionsFor(message.client.user);
+		const member = message.mentions.members.first();
 
-		if (!permissions.has('KICK_MEMBERS') || !message.member.hasPermission('KICK_MEMBERS')) {
-			return message.channel.send('You can\'t kick someone without the needed permissions');
+		if (!member) {
+			return message.reply('You need to mention the member you want to kick');
 		}
 
-		if (!member) return message.reply('Please mention a valid member of this server');
-		if (!member.kickable) return message.reply('This user isn not kickable');
+		if (!member.kickable) {
+			return message.reply('I can\'t kick this user.');
+		}
 
-		const member = message.mentions.members.first();
-		member.kick().then(() => {
-			message.channel.send(':wave: ' + member.displayName + ' has been successfully kicked :point_right: ');
-		}).catch(() => {
-			message.channel.send('Access Denied');
-		});
+		return member
+			.kick()
+			.then(() => message.reply(`${member.user.tag} was kicked.`))
+			.catch(error => message.reply('Sorry, an error occured.'));
 	},
 };
