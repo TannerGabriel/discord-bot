@@ -8,7 +8,7 @@ module.exports = {
 			return message.reply('You need to mention the member you want to ban him');
 		}
 
-		if (!member.banable) {
+		if (!message.member.hasPermission("MANAGE\_MEMBERS")) {
 			return message.reply('I can\'t ban this user.');
 		}
 
