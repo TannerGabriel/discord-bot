@@ -17,7 +17,7 @@
   "dependencies": {
     "discord.js": "^11.4.2",
     "ffmpeg": "0.0.4",
-    "ffmpeg-binaries": "^4.0.0",
+    "fluent-ffmpeg": "^2.1.2",
     "opusscript": "0.0.7",
     "ytdl-core": "^1.0.0"
   }
