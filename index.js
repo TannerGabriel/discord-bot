@@ -33,7 +33,7 @@ client.once('disconnect', () => {
 });
 
 client.on('message', async message => {
-	const args = message.content.slice(1).split(/ +/);
+	const args = message.content.slice(prefix.length).split(/ +/);
 	const commandName = args.shift().toLowerCase();
 	const command = client.commands.get(commandName);
 
