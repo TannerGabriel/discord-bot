@@ -53,7 +53,7 @@ node index.js
 docker build --tag discordbot .
 
 # Run the image
-docker run discordbot
+docker run -d discordbot
 ```
 
 ## Author
