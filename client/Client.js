@@ -4,7 +4,7 @@ module.exports = class extends Client {
 	constructor(config) {
 		super({
 			disableEveryone: true,
-			disabledEvents: ['TYPING_START'],
+			disabledEvents: ['TYPING_START']
 		});
 
 		this.commands = new Collection();
