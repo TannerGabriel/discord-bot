@@ -10,7 +10,7 @@ module.exports = {
       const queue = message.client.queue;
       const serverQueue = message.client.queue.get(message.guild.id);
 
-      const voiceChannel = message.member.voiceChannel;
+      const voiceChannel = message.member.voice.channel;
       if (!voiceChannel)
         return message.channel.send(
           "You need to be in a voice channel to play music!"
@@ -75,15 +75,13 @@ module.exports = {
     }
 
     const dispatcher = serverQueue.connection
-      .playStream(ytdl(song.url, { fliter: "audioonly" }))
-      .on("end", () => {
-        console.log("Music ended!");
+      .play(ytdl(song.url))
+      .on("finish", () => {
         serverQueue.songs.shift();
         this.play(message, serverQueue.songs[0]);
       })
-      .on("error", error => {
-        console.error(error);
-      });
+      .on("error", error => console.error(error));
     dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+    serverQueue.textChannel.send(`Start playing: **${song.title}**`);
   }
 };
