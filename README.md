@@ -5,7 +5,6 @@ A simple discord bot which helps you manage your server by providing useful comm
 ## Features
 
 - Ban
-- Kick
 - Userinfo
 - Play music
 - Skip songs

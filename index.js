@@ -39,11 +39,16 @@ client.on('message', async message => {
 	if (!message.content.startsWith(prefix)) return;
 
 	try {
-		command.execute(message);
+		if(commandName == "ban" || commandName == "userinfo") {
+			command.execute(message, client);
+		} else {
+			command.execute(message);
+		}
 	} catch (error) {
 		console.error(error);
 		message.reply('There was an error trying to execute that command!');
 	}
 });
+
 
 client.login(token);
