@@ -19,6 +19,6 @@
     "discord.js": "^12.0.2",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
-    "ytdl-core": "^2.0.1"
+    "ytdl-core": "^2.1.1"
   }
 }
