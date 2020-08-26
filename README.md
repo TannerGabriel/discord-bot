@@ -93,3 +93,5 @@ Gabriel Tanner
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
+
+[![Run on Repl.it](https://repl.it/badge/github/TannerGabriel/discord-bot)](https://repl.it/github/TannerGabriel/discord-bot)
