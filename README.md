@@ -6,24 +6,13 @@ You can find the tutorial about building a discord music bot [here](https://gabr
 
 ## Table of content
 
-* [Features](#features)
+
 * [Requirements](#requirements)
 * [Getting started](#getting-started)
 * [Common errors](#common-errors)
+* [Contributing](#contributing)
 * [Author](#author)
 * [License](#license)
-
-## Features
-
-- Ban
-- Userinfo
-- Play music
-- Skip songs
-- Stop music
-- Pause music
-- Resume music
-- Nowplaying
-- Purge text messages
 
 ## Requirements
 
@@ -69,7 +58,34 @@ docker build --tag discordbot .
 docker run -d discordbot
 ```
 
-## Screenshots
+## Features & Commands
+
+> Note: The default prefix is '!'
+
+* 🎶 Play music from YouTube via url
+
+`!play YOUTUBE_URL`
+
+* 📃 Pause music
+
+`!pause`
+
+* 🎓 Resume music
+
+`!resume`
+
+* 💿 Skip song
+
+`!skip`
+
+* 🔇 Stop music
+
+`!stop`
+
+* Now Playing (!nowplaying)
+* Get information about a user (!userinfo)
+* Ban a player (!ban)
+* Delete the latest chat messages (!pruge)
 
 <img src="./assets/playing_song.png">
 
@@ -89,9 +105,13 @@ npm install ytdl-core@latest
 
 The `play` command requires FFMPEG to be installed on the machine that is running the bot. You can download it on the official [FFMPEG website](https://www.ffmpeg.org/). Note: This isn't relevant if you use the Dockerfile because it will install FFMPEG inside of the container.
 
+## Contributing
+
+You are welcome to contribute by submitting a Pull Request to the repository.
+
 ## Author
 
-Gabriel Tanner
+[Gabriel Tanner](https://gabrieltanner.org/)
 
 ## Support me
 
