@@ -20,6 +20,9 @@ You can find the tutorial about building a discord music bot [here](https://gabr
 - Play music
 - Skip songs
 - Stop music
+- Pause music
+- Resume music
+- Nowplaying
 - Purge text messages
 
 ## Requirements
@@ -65,6 +68,10 @@ docker build --tag discordbot .
 # Run the image
 docker run -d discordbot
 ```
+
+## Screenshots
+
+<img src="./assets/playing_song.png">
 
 ## Common errors
 
