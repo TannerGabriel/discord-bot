@@ -5,6 +5,7 @@ const {
 	prefix,
 	token,
 } = require('./config.json');
+const { Player, QueueRepeatMode } = require("discord-player");
 
 const client = new Client();
 client.commands = new Discord.Collection();
@@ -18,6 +19,35 @@ for (const file of commandFiles) {
 
 console.log(client.commands);
 
+const player = new Player(client);
+
+player.on("error", (queue, error) => {
+    console.log(`[${queue.guild.name}] Error emitted from the queue: ${error.message}`);
+});
+player.on("connectionError", (queue, error) => {
+    console.log(`[${queue.guild.name}] Error emitted from the connection: ${error.message}`);
+});
+
+player.on("trackStart", (queue, track) => {
+    queue.metadata.send(`🎶 | Started playing: **${track.title}** in **${queue.connection.channel.name}**!`);
+});
+
+player.on("trackAdd", (queue, track) => {
+    queue.metadata.send(`🎶 | Track **${track.title}** queued!`);
+});
+
+player.on("botDisconnect", (queue) => {
+    queue.metadata.send("❌ | I was manually disconnected from the voice channel, clearing queue!");
+});
+
+player.on("channelEmpty", (queue) => {
+    queue.metadata.send("❌ | Nobody is in the voice channel, leaving...");
+});
+
+player.on("queueEnd", (queue) => {
+    queue.metadata.send("✅ | Queue finished!");
+});
+
 client.once('ready', () => {
 	console.log('Ready!');
 });
@@ -30,25 +60,31 @@ client.once('disconnect', () => {
 	console.log('Disconnect!');
 });
 
-client.on('message', async message => {
-	const args = message.content.slice(prefix.length).split(/ +/);
-	const commandName = args.shift().toLowerCase();
-	const command = client.commands.get(commandName);
+client.on("messageCreate", async (message) => {
+    if (message.author.bot || !message.guild) return;
+    if (!client.application?.owner) await client.application?.fetch();
 
-	if (message.author.bot) return;
-	if (!message.content.startsWith(prefix)) return;
+    if (message.content === "!deploy" && message.author.id === client.application?.owner?.id) {
+		await message.guild.commands.set(client.commands)
+        await message.reply("Deployed!");
+    }
+});
+
+client.on("interactionCreate", async (interaction) => {
+	const command = client.commands.get(interaction.commandName.toLowerCase());
 
 	try {
-		if(commandName == "ban" || commandName == "userinfo") {
-			command.execute(message, client);
+		if(interaction.commandName == "ban" || interaction.commandName == "userinfo") {
+			command.execute(interaction, client);
+		} else if(interaction.commandName == "play") {
+			command.execute(interaction, player);
 		} else {
-			command.execute(message);
+			command.execute(interaction);
 		}
 	} catch (error) {
 		console.error(error);
-		message.reply('There was an error trying to execute that command!');
+		interaction.followUp({ content: "There was an error trying to execute that command!" });
 	}
 });
-
 
 client.login(token);

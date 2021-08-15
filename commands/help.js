@@ -3,7 +3,7 @@ const fs = require('fs')
 module.exports = {
 	name: 'help',
 	description: 'List all available commands.',
-	execute(message) {
+	execute(interaction) {
 		let str = '';
 		const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -12,6 +12,9 @@ module.exports = {
 			str += `Name: ${command.name}, Description: ${command.description} \n`;
 		}
 
-		message.channel.send(str);
+		return void interaction.reply({
+			content: str,
+			ephemeral: true,
+		  });
 	},
 };

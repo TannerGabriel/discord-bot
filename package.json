@@ -16,9 +16,10 @@
   "license": "MIT",
   "dependencies": {
     "@discordjs/opus": "^0.5.0",
-    "discord.js": "^12.5.1",
+    "discord-player": "^5.0.2",
+    "discord.js": "^13.1.0-dev.1628770069.d9456a1",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
-    "ytdl-core": "^4.9.0"
+    "ytdl-core": "^4.9.1"
   }
 }
