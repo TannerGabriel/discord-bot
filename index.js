@@ -76,10 +76,8 @@ client.on("interactionCreate", async (interaction) => {
 	try {
 		if(interaction.commandName == "ban" || interaction.commandName == "userinfo") {
 			command.execute(interaction, client);
-		} else if(interaction.commandName == "play" || interaction.commandName == "pause" || interaction.commandName == "resume") {
-			command.execute(interaction, player);
 		} else {
-			command.execute(interaction);
+			command.execute(interaction, player);
 		}
 	} catch (error) {
 		console.error(error);
