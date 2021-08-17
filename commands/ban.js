@@ -1,5 +1,3 @@
-const { getUserFromMention } = require('../util/getUser')
-
 module.exports = {
 	name: 'ban',
 	description: 'Ban a player',
@@ -22,7 +20,7 @@ module.exports = {
 			return message.reply('I can\'t ban this user.');
 		}
 
-		userinfo = client.users.cache.get(member)
+		const userinfo = client.users.cache.get(member)
 
 		return interaction.guild.members.ban(member)
 			.then(() => {
