@@ -3,22 +3,36 @@ const { getUserFromMention } = require('../util/getUser')
 module.exports = {
 	name: 'ban',
 	description: 'Ban a player',
-	execute(message, client) {
-		const split = message.content.split(/ +/);
-		const args = split.slice(1);
-
-		const member = getUserFromMention(args[0], client);
+	options: [
+		{
+		  name: "user",
+		  type: "USER",
+		  description: "The user you want to ban",
+		  required: true,
+		},
+	],
+	execute(interaction, client) {
+		const member = interaction.options.get("user").value;
 
 		if (!member) {
 			return message.reply('You need to mention the member you want to ban him');
 		}
 
-		if (!message.member.permissions.has("BAN_MEMBERS")) {
+		if (!interaction.member.permissions.has("BAN_MEMBERS")) {
 			return message.reply('I can\'t ban this user.');
 		}
 
-		return message.guild.members.ban(member)
-			.then(() => message.reply(`${member.username} was banned.`))
-			.catch(error => message.reply('Sorry, an error occured.'));
+		userinfo = client.users.cache.get(member)
+
+		return interaction.guild.members.ban(member)
+			.then(() => {
+				interaction.reply({
+				content: `${userinfo.username} was banned.`,
+				ephemeral: true,
+			  });})
+			.catch(error => interaction.reply({
+				content: `Sorry, an error occured.`,
+				ephemeral: true,
+			  }));
 	},
 };
