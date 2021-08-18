@@ -1,26 +1,22 @@
-const { GuildMember } = require("discord.js");
+const {GuildMember} = require('discord.js');
 
 module.exports = {
-  name: "nowplaying",
-  description: "Get the song that is playing.",
+  name: 'nowplaying',
+  description: 'Get the song that is playing.',
   async execute(interaction, player) {
-    if (
-      !(interaction.member instanceof GuildMember) ||
-      !interaction.member.voice.channel
-    ) {
+    if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
       return void interaction.reply({
-        content: "You are not in a voice channel!",
+        content: 'You are not in a voice channel!',
         ephemeral: true,
       });
     }
 
     if (
       interaction.guild.me.voice.channelId &&
-      interaction.member.voice.channelId !==
-        interaction.guild.me.voice.channelId
+      interaction.member.voice.channelId !== interaction.guild.me.voice.channelId
     ) {
       return void interaction.reply({
-        content: "You are not in my voice channel!",
+        content: 'You are not in my voice channel!',
         ephemeral: true,
       });
     }
@@ -29,7 +25,7 @@ module.exports = {
     const queue = player.getQueue(interaction.guildId);
     if (!queue || !queue.playing)
       return void interaction.followUp({
-        content: "❌ | No music is being played!",
+        content: '❌ | No music is being played!',
       });
     const progress = queue.createProgressBar();
     const perc = queue.getPlayerTimestamp();
@@ -37,11 +33,11 @@ module.exports = {
     return void interaction.followUp({
       embeds: [
         {
-          title: "Now Playing",
+          title: 'Now Playing',
           description: `🎶 | **${queue.current.title}**! (\`${perc.progress}%\`)`,
           fields: [
             {
-              name: "\u200b",
+              name: '\u200b',
               value: progress,
             },
           ],
