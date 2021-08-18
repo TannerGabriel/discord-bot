@@ -2,7 +2,7 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const Client = require('./client/Client');
 const {token} = require('./config.json');
-const {Player, QueueRepeatMode} = require('discord-player');
+const {Player} = require('discord-player');
 
 const client = new Client();
 client.commands = new Discord.Collection();
