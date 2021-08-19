@@ -6,7 +6,6 @@ You can find the tutorial about building a discord music bot [here](https://gabr
 
 ## Table of content
 
-
 * [Requirements](#requirements)
 * [Getting started](#getting-started)
 * [Common errors](#common-errors)
@@ -16,7 +15,7 @@ You can find the tutorial about building a discord music bot [here](https://gabr
 
 ## Requirements
 
-- [Node](https://nodejs.org/en/)
+- [Node](https://nodejs.org/en/) - Version 16 or higher
 - [NPM](https://www.npmjs.com/)
 - [FFMPEG](https://www.ffmpeg.org/)
 - [Docker](https://www.docker.com/) (optional)
@@ -60,32 +59,36 @@ docker run -d discordbot
 
 ## Features & Commands
 
-> Note: The default prefix is '!'
+> Note: The repository now uses the new Discord slash commands
 
 * 🎶 Play music from YouTube via url
 
-`!play YOUTUBE_URL`
+`/play YOUTUBE_URL`
+
+* 🎶 Play music from using song name
+
+`/play SONG_NAME`
 
 * 📃 Pause music
 
-`!pause`
+`/pause`
 
 * 🎓 Resume music
 
-`!resume`
+`/resume`
 
 * 💿 Skip song
 
-`!skip`
+`/skip`
 
 * 🔇 Stop music
 
-`!stop`
+`/stop`
 
-* Now Playing (!nowplaying)
-* Get information about a user (!userinfo)
-* Ban a player (!ban)
-* Delete the latest chat messages (!pruge)
+* Now Playing (/nowplaying)
+* Get information about a user (/userinfo USER)
+* Ban a player (/ban USER)
+* Delete the latest chat messages (/purge NUM_OF_MESSAGES)
 
 <img src="./assets/playing_song.png">
 
