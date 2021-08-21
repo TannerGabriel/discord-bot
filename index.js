@@ -45,8 +45,14 @@ player.on('queueEnd', queue => {
   queue.metadata.send('✅ | Queue finished!');
 });
 
-client.once('ready', () => {
+client.once('ready', async () => {
   console.log('Ready!');
+
+  // Register Slash commands
+  client.commands.forEach((command) => {
+    client.api.applications(client.user.id).commands.post({data: command})
+  })
+  
 });
 
 client.once('reconnecting', () => {
@@ -55,16 +61,6 @@ client.once('reconnecting', () => {
 
 client.once('disconnect', () => {
   console.log('Disconnect!');
-});
-
-client.on('messageCreate', async message => {
-  if (message.author.bot || !message.guild) return;
-  if (!client.application?.owner) await client.application?.fetch();
-
-  if (message.content === '!deploy' && message.author.id === client.application?.owner?.id) {
-    await message.guild.commands.set(client.commands);
-    await message.reply('Deployed!');
-  }
 });
 
 client.on('interactionCreate', async interaction => {

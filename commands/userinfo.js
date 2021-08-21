@@ -4,7 +4,7 @@ module.exports = {
   options: [
     {
       name: 'user',
-      type: 'USER',
+      type: 6, //USER TYPE
       description: 'The user you want to get info about',
       required: true,
     },

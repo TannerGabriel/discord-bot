@@ -4,7 +4,7 @@ module.exports = {
   options: [
     {
       name: 'num',
-      type: 'INTEGER',
+      type: 4, //'INTEGER' Type
       description: 'The number of messages you want to delete. (max 100)',
       required: true,
     },
