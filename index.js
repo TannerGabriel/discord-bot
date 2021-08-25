@@ -21,6 +21,7 @@ const player = new Player(client);
 player.on('error', (queue, error) => {
   console.log(`[${queue.guild.name}] Error emitted from the queue: ${error.message}`);
 });
+
 player.on('connectionError', (queue, error) => {
   console.log(`[${queue.guild.name}] Error emitted from the connection: ${error.message}`);
 });
@@ -47,12 +48,6 @@ player.on('queueEnd', queue => {
 
 client.once('ready', async () => {
   console.log('Ready!');
-
-  // Register Slash commands
-  client.commands.forEach((command) => {
-    client.api.applications(client.user.id).commands.post({data: command})
-  })
-  
 });
 
 client.once('reconnecting', () => {
@@ -61,6 +56,21 @@ client.once('reconnecting', () => {
 
 client.once('disconnect', () => {
   console.log('Disconnect!');
+});
+
+client.on("messageCreate", async (message) => {
+  if (message.author.bot || !message.guild) return;
+  if (!client.application?.owner) await client.application?.fetch();
+
+  if (message.content === "!deploy" && message.author.id === client.application?.owner?.id) {
+      await message.guild.commands.set(client.commands).then(() => {
+        message.reply("Deployed!");
+      })
+      .catch((err) => {
+        message.reply("Could not deploy commands! Make sure the bot has the application.commands permission!");
+        console.error(err)
+      });
+  }
 });
 
 client.on('interactionCreate', async interaction => {

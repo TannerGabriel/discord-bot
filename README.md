@@ -57,6 +57,16 @@ docker build --tag discordbot .
 docker run -d discordbot
 ```
 
+## Deploying commands
+
+Before you can use the bots slash command you first need to add them to your Discord server. You can use the `!deploy` command to do so.
+
+<img src="./assets/deploy-commands.png">
+
+After deploying the commands you should be able to see and access them by typing a slash:
+
+<img src="./assets/commands.png">
+
 ## Features & Commands
 
 > Note: The repository now uses the new Discord slash commands
