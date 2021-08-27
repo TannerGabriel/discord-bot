@@ -6,7 +6,6 @@ You can find the tutorial about building a discord music bot [here](https://gabr
 
 ## Table of content
 
-
 * [Requirements](#requirements)
 * [Getting started](#getting-started)
 * [Common errors](#common-errors)
@@ -16,7 +15,7 @@ You can find the tutorial about building a discord music bot [here](https://gabr
 
 ## Requirements
 
-- [Node](https://nodejs.org/en/)
+- [Node](https://nodejs.org/en/) - Version 16 or higher
 - [NPM](https://www.npmjs.com/)
 - [FFMPEG](https://www.ffmpeg.org/)
 - [Docker](https://www.docker.com/) (optional)
@@ -38,6 +37,10 @@ cd discord-bot/
 npm install
 ```
 
+## Required permissions
+
+**Important:** Make sure that your bot has the `applications.commands` application scope enabled, which can be found under the `OAuth2` tap on the [developer portal](https://discord.com/developers/applications/)
+
 ### Configuration
 
 After cloning the project and installing all dependencies, you need to add your Discord API token in the config.json file.
@@ -58,34 +61,48 @@ docker build --tag discordbot .
 docker run -d discordbot
 ```
 
+## Deploying commands
+
+Before you can use the bots slash command you first need to add them to your Discord server. You can use the `!deploy` command to do so.
+
+<img src="./assets/deploy-commands.png">
+
+After deploying the commands you should be able to see and access them by typing a slash:
+
+<img src="./assets/commands.png">
+
 ## Features & Commands
 
-> Note: The default prefix is '!'
+> Note: The repository now uses the new Discord slash commands
 
 * 🎶 Play music from YouTube via url
 
-`!play YOUTUBE_URL`
+`/play YOUTUBE_URL`
+
+* 🎶 Play music from using song name
+
+`/play SONG_NAME`
 
 * 📃 Pause music
 
-`!pause`
+`/pause`
 
 * 🎓 Resume music
 
-`!resume`
+`/resume`
 
 * 💿 Skip song
 
-`!skip`
+`/skip`
 
 * 🔇 Stop music
 
-`!stop`
+`/stop`
 
-* Now Playing (!nowplaying)
-* Get information about a user (!userinfo)
-* Ban a player (!ban)
-* Delete the latest chat messages (!pruge)
+* Now Playing (/nowplaying)
+* Get information about a user (/userinfo USER)
+* Ban a player (/ban USER)
+* Delete the latest chat messages (/purge NUM_OF_MESSAGES)
 
 <img src="./assets/playing_song.png">
 
