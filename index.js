@@ -48,6 +48,7 @@ player.on('queueEnd', queue => {
 
 client.once('ready', async () => {
   console.log('Ready!');
+  client.user.setActivity('/help', { type: 'LISTENING' });
 });
 
 client.once('reconnecting', () => {
@@ -77,7 +78,7 @@ client.on('interactionCreate', async interaction => {
   const command = client.commands.get(interaction.commandName.toLowerCase());
 
   try {
-    if (interaction.commandName == 'ban' || interaction.commandName == 'userinfo') {
+    if (interaction.commandName == 'vincelfo' || interaction.commandName == 'vincenzo') {
       command.execute(interaction, client);
     } else {
       command.execute(interaction, player);
