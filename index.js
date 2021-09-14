@@ -1,6 +1,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const Client = require('./client/Client');
+const {prefix} = require('./config.json');
 const {token} = require('./config.json');
 const {Player} = require('discord-player');
 
@@ -63,7 +64,7 @@ client.on("messageCreate", async (message) => {
   if (message.author.bot || !message.guild) return;
   if (!client.application?.owner) await client.application?.fetch();
 
-  if (message.content === "!deploy" && message.author.id === client.application?.owner?.id) {
+  if (message.content.startsWith(prefix + "deploy") && message.author.id === client.application?.owner?.id) {
       await message.guild.commands.set(client.commands).then(() => {
         message.reply("Deployed!");
       })
