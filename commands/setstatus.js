@@ -11,7 +11,7 @@ module.exports = {
     {
       name: 'stato',
       type: 3, // 'STRING' Type
-      description: '1: "Sta giocando" 2: "sta Ascoltando"',
+      description: '1: "Sta giocando", 2: "Sta ascoltando"',
       required: true,
     },
   ],
@@ -26,8 +26,15 @@ module.exports = {
      break;
     case 2:
      type = 'LISTENING';
+     break;
    }
 
-   client.user.setActivity(descr, { type: type });
+   try {
+    client.user.setActivity(descr, { type: type });
+    return void interaction.reply('Stato del bot modificato in ${descr}!');
+   }
+   catch {
+    return void interaction.reply('Stato non cambiato!');
+   }
   },
 };
