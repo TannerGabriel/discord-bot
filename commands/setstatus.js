@@ -18,17 +18,17 @@ module.exports = {
   async execute(interaction, player, client) {
    const descr = interaction.options.get('descrizione').value;
    const stato = interaction.options.get('stato').value;
-   let type;
+   var type;
 
    switch(stato) {
     case 1:
-     let = 'PLAYING';
+     type = 'PLAYING';
      break;
     case 2:
-     let = 'LISTENING';
+     type = 'LISTENING';
      break;
    }
 
-   client.user.setActivity(descrizione, { type: type });
+   client.user.setActivity(${descrizione}, { type: ${type} });
   },
 };
