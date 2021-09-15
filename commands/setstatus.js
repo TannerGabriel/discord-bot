@@ -21,17 +21,18 @@ module.exports = {
    var type;
 
    switch(stato) {
-    case 1:
+    case '1':
      type = 'PLAYING';
      break;
-    case 2:
+    case '2':
      type = 'LISTENING';
      break;
    }
 
    try {
     client.user.setActivity(descr, { type: type });
-    return void interaction.reply('Stato del bot modificato in ${descr}!');
+    var response = 'Stato del bot modificato in: ' + descr + '!';
+    return void interaction.reply(response);
    }
    catch {
     return void interaction.reply('Stato non cambiato!');
