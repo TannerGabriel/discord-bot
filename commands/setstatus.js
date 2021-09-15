@@ -29,6 +29,6 @@ module.exports = {
      break;
    }
 
-   client.user.setActivity('${descrizione}', { type: '${type}' });
+   client.user.setActivity(descrizione, { type: type });
   },
 };
