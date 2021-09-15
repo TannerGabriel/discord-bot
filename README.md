@@ -99,10 +99,9 @@ After deploying the commands you should be able to see and access them by typing
 
 `/stop`
 
-* Now Playing (/nowplaying)
-* Get information about a user (/userinfo USER)
-* Ban a player (/ban USER)
-* Delete the latest chat messages (/purge NUM_OF_MESSAGES)
+* 🎶 Shows current song playing
+
+`/nowplaying`
 
 <img src="./assets/playing_song.png">
 
