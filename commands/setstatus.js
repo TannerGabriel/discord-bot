@@ -26,9 +26,8 @@ module.exports = {
      break;
     case 2:
      type = 'LISTENING';
-     break;
    }
 
-   client.user.setActivity('${descr}', { type: '${type}' });
+   client.user.setActivity(descr, { type: type });
   },
 };
