@@ -5,7 +5,7 @@ module.exports = {
     {
       name: 'stato',
       type: 3, // 'STRING' Type
-      description: '1: "Online", 2: "Assente", 3: "Invisibile", 4: "Non disturbare"',
+      description: '1: "Online", 2: "Inattivo", 3: "Invisibile", 4: "Non disturbare"',
       required: true,
     },
   ],
@@ -21,7 +21,7 @@ module.exports = {
      break;
     case '2':
      type = 'idle';
-     long_stato = 'Assente ';
+     long_stato = 'Inattivo ';
      break;
     case '3':
      type = 'invisible';
