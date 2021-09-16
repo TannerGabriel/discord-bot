@@ -1,6 +1,7 @@
 module.exports = {
   name: 'setstatus',
   description: 'Cambia stato online del bot',
+  options: [
     {
       name: 'stato',
       type: 3, // 'STRING' Type
