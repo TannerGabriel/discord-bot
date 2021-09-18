@@ -25,7 +25,6 @@ module.exports = {
           }
         else {
             var queue = player.getQueue(interaction.guildId);
-            console.log(typeof(queue));
             if (typeof(queue) != 'undefined') {
               return void interaction.reply({
                 embeds: [
