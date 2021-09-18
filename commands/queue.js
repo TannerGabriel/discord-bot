@@ -24,8 +24,10 @@ module.exports = {
             });
           }
         else {
-            const queue = player.getQueue(interaction.guildId);
-            return void interaction.reply({
+            var queue = player.getQueue(interaction.guildId);
+            console.log(typeof(queue));
+            if (typeof(queue) != 'undefined') {
+              return void interaction.reply({
                 embeds: [
                     {
                         title: 'Now Playing',
@@ -33,6 +35,12 @@ module.exports = {
                     }
                 ] 
             })
+            } else {
+              return void interaction.reply({
+                content: 'There are no song in the queue! use /play to add some songs and get listening!'
+              })
+            }
+            
         }
     }
 }
