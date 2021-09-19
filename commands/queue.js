@@ -1,4 +1,5 @@
 const {GuildMember} = require('discord.js');
+const { slice } = require('ffmpeg-static');
 
 module.exports = {
 
@@ -23,23 +24,21 @@ module.exports = {
               ephemeral: true,
             });
           }
-        else {
-            var queue = player.getQueue(interaction.guildId);
-            if (typeof(queue) != 'undefined') {
+          var queue = player.getQueue(interaction.guildId);
+          if (typeof(queue) != 'undefined') {
+            trimString = (str, max) => ((str.length > max) ? `${str.slice(0, max - 3)}...` : str);
               return void interaction.reply({
                 embeds: [
-                    {
-                        title: 'Now Playing',
-                        description: `The Current song playing is 🎶 | **${queue.current.title}**! \n 🎶 | **${queue}**! `,
-                    }
-                ] 
-            })
-            } else {
-              return void interaction.reply({
-                content: 'There are no song in the queue! use /play to add some songs and get listening!'
+                  {
+                    title: 'Now Playing',
+                    description: trimString(`The Current song playing is 🎶 | **${queue.current.title}**! \n 🎶 | **${queue}**! `, 4095),
+                  }
+                ]
               })
-            }
-            
-        }
+          } else {
+            return void interaction.reply({
+              content: 'There is no song in the queue!'
+            })
+          }
     }
 }
