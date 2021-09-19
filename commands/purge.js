@@ -18,7 +18,7 @@ module.exports = {
         ephemeral: true,
       });
     }
-      
+
     const fetched = await interaction.channel.messages.fetch({
       limit: deleteCount,
     });
