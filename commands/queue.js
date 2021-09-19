@@ -1,5 +1,4 @@
 const {GuildMember} = require('discord.js');
-const { slice } = require('ffmpeg-static');
 
 module.exports = {
 
