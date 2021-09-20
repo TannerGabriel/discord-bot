@@ -12,8 +12,12 @@ module.exports = {
   async execute(interaction) {
     const deleteCount = interaction.options.get('num').value;
 
-    if (!deleteCount || deleteCount < 2 || deleteCount > 100)
-      return message.reply('Please provide a number between 2 and 100 for the number of messages to delete');
+    if (!deleteCount || deleteCount < 2 || deleteCount > 100) {
+      return void interaction.reply({
+        content: `Please provide a number between 2 and 100 for the number of messages to delete`,
+        ephemeral: true,
+      });
+    }
 
     const fetched = await interaction.channel.messages.fetch({
       limit: deleteCount,
