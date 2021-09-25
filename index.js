@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const Client = require('./client/Client');
-const {token} = require('./config.json');
+const config = require('./config.json');
 const {Player} = require('discord-player');
 
 const client = new Client();
@@ -27,7 +27,7 @@ player.on('connectionError', (queue, error) => {
 });
 
 player.on('trackStart', (queue, track) => {
-  queue.metadata.send(`🎶 | Started playing: **${track.title}** in **${queue.connection.channel.name}**!`);
+  queue.metadata.send(`▶ | Started playing: **${track.title}** in **${queue.connection.channel.name}**!`);
 });
 
 player.on('trackAdd', (queue, track) => {
@@ -48,6 +48,10 @@ player.on('queueEnd', queue => {
 
 client.once('ready', async () => {
   console.log('Ready!');
+});
+
+client.on('ready', function() {
+  client.user.setActivity(config.activity, { type: config.activityType });
 });
 
 client.once('reconnecting', () => {
@@ -92,4 +96,4 @@ client.on('interactionCreate', async interaction => {
   }
 });
 
-client.login(token);
+client.login(config.token);
