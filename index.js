@@ -43,9 +43,9 @@ player.on('channelEmpty', queue => {
   queue.metadata.send('❌ | Nobody is in the voice channel, leaving...');
 });
 
-player.on('queueEnd', queue => {
-  queue.metadata.send('✅ | Queue finished!');
-});
+// player.on('queueEnd', queue => {
+//   queue.metadata.send('✅ | Queue finished!');
+// });
 
 client.once('ready', async () => {
   console.log('Ready!');
