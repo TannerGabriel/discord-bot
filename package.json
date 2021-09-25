@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "prettier --write \"**/*.js\""
+    "lint": "prettier --write \"**/*.js\"",
+    "start": "nodemon index.js"
   },
   "keywords": [
     "discord",
@@ -19,11 +20,13 @@
     "@discordjs/opus": "^0.6.0",
     "discord-player": "^5.1.0",
     "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "ytdl-core": "^4.9.1"
   },
   "devDependencies": {
+    "nodemon": "^2.0.13",
     "prettier": "2.4.1"
   }
 }
