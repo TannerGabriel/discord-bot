@@ -68,15 +68,13 @@ client.on('messageCreate', async message => {
   if (!client.application?.owner) await client.application?.fetch();
 
   if (message.content === '!deploy') {
-    await message.guild.commands
-      .set(client.commands)
-      .then(() => {
-        message.reply('Deployed!');
-      })
-      .catch(err => {
-        message.reply('Could not deploy commands! Make sure the bot has the application.commands permission!');
-        console.error(err);
-      });
+    try {
+      await message.guild.commands.set(client.commands);
+      message.reply('Deployed!');
+    } catch (error) {
+      message.reply('Could not deploy commands! Make sure the bot has the application.commands permission!');
+      console.error(err);
+    }
   }
 });
 
@@ -84,11 +82,7 @@ client.on('interactionCreate', async interaction => {
   const command = client.commands.get(interaction.commandName.toLowerCase());
 
   try {
-    if (interaction.commandName == 'ban' || interaction.commandName == 'userinfo') {
-      command.execute(interaction, client);
-    } else {
-      command.execute(interaction, player);
-    }
+    command.execute(interaction, player);
   } catch (error) {
     console.error(error);
     interaction.followUp({

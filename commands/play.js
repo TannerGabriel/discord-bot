@@ -39,7 +39,11 @@ module.exports = {
           requestedBy: interaction.user,
           searchEngine: QueryType.AUTO,
         })
-        .catch(() => {});
+        .catch(() => {
+          return void interaction.followUp({
+            content: 'Some error happened!',
+          });
+        });
       if (!searchResult || !searchResult.tracks.length)
         return void interaction.followUp({content: 'No results were found!'});
 
@@ -56,9 +60,6 @@ module.exports = {
         });
       }
 
-      await interaction.followUp({
-        content: `⏱ | Loading your ${searchResult.playlist ? 'playlist' : 'track'}...`,
-      });
       searchResult.playlist ? queue.addTracks(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
       if (!queue.playing) await queue.play();
     } catch (error) {
