@@ -1,9 +1,9 @@
-FROM node:16.10.0
+FROM node:alpine
 
 WORKDIR /usr/src/app
 
-RUN apt-get update || : && apt-get install python -y
-RUN apt-get install ffmpeg -y
+RUN apk update || : && apk add python3
+RUN apk add ffmpeg
 
 COPY package*.json ./
 
