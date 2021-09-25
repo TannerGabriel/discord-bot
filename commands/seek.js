@@ -35,8 +35,11 @@ module.exports = {
       if (!queue || !queue.playing) return void interaction.followUp({content: '❌ | No music is being played!'});
 
       const time = interaction.options.get('time').value;
+      await queue.setPaused(true);
 
       const success = await queue.seek(time);
+      await queue.setPaused(false);
+
       return void interaction.followUp({
         content: success ? `⏱ | Successfully seeked the song to ${time}` : '❌ | Something went wrong!',
       });
