@@ -31,8 +31,6 @@ module.exports = {
         });
       }
 
-      await interaction.deferReply();
-
       const query = interaction.options.get('query').value;
       const searchResult = await player
         .search(query, {
@@ -60,6 +58,9 @@ module.exports = {
         });
       }
 
+      await interaction.followUp({
+        content: `⏱ | Loading your ${searchResult.playlist ? 'playlist' : 'track'}...`,
+      });
       searchResult.playlist ? queue.addTracks(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
       if (!queue.playing) await queue.play();
     } catch (error) {
