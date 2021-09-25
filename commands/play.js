@@ -60,7 +60,9 @@ module.exports = {
         });
       }
 
-      await interaction.followUp();
+      await interaction.followUp({
+        content: `⏱ | Loading your ${searchResult.playlist ? 'playlist' : 'track'}...`,
+      });
       searchResult.playlist ? queue.addTracks(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
       if (!queue.playing) await queue.play();
     } catch (error) {
