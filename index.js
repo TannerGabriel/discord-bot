@@ -32,7 +32,9 @@ player.on('trackStart', (queue, track) => {
 });
 
 player.on('trackAdd', (queue, track) => {
-  queue.metadata.send(`🎶 | Track **${track.title}** queued!`);
+  if (queue.playing) {
+    queue.metadata.send(`🎶 | Track **${track.title}** queued!`);
+  }
 });
 
 player.on('botDisconnect', queue => {
