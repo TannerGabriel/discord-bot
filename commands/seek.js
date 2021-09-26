@@ -6,7 +6,7 @@ module.exports = {
   options: [
     {
       name: 'time',
-      type: 4, // 'STRING' Type
+      type: 4, // 'NUMBER' Type
       description: 'The time in ms you want to seek to.',
       required: true,
     },
@@ -35,10 +35,8 @@ module.exports = {
       if (!queue || !queue.playing) return void interaction.followUp({content: '❌ | No music is being played!'});
 
       const time = interaction.options.get('time').value;
-      await queue.setPaused(true);
 
       const success = await queue.seek(time);
-      await queue.setPaused(false);
 
       return void interaction.followUp({
         content: success ? `⏱ | Successfully seeked the song to ${time}` : '❌ | Something went wrong!',
