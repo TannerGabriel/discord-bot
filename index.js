@@ -34,12 +34,8 @@ player.on('trackStart', (queue, track) => {
       {
         title: 'Started playing',
         description: `▶ | ${track.title}`,
-        url: track.url,
         thumbnail: {
           url: track.thumbnail,
-        },
-        footer: {
-          text: `in **${queue.connection.channel.name}**`,
         },
       },
     ],
