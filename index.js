@@ -47,6 +47,9 @@ player.on('trackStart', (queue, track) => {
             value: track.duration,
             inline: true,
           },
+          track.live && {
+            name: 'LIVE',
+          },
         ],
         url: track.url,
         thumbnail: {
