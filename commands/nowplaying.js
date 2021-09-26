@@ -35,7 +35,9 @@ module.exports = {
         {
           title: 'Now Playing',
           description: `🎶 | **${queue.current.title}**! (\`${perc.progress}%\`)`,
-          thumbnail: queue.current.thumbnail,
+          thumbnail: {
+            url: queue.current.thumbnail,
+          },
           fields: [
             {
               name: '\u200b',

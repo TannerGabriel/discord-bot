@@ -35,7 +35,9 @@ player.on('trackStart', (queue, track) => {
       {
         title: 'Started playing',
         description: `▶ | ${track.title}`,
-        image: track.thumbnail,
+        thumbnail: {
+          url: track.thumbnail,
+        },
       },
     ],
   });
