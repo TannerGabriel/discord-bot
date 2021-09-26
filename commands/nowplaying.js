@@ -35,6 +35,7 @@ module.exports = {
         {
           title: 'Now Playing',
           description: `🎶 | **${queue.current.title}**! (\`${perc.progress}%\`)`,
+          url: track.url,
           thumbnail: {
             url: queue.current.thumbnail,
           },
