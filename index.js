@@ -40,10 +40,12 @@ player.on('trackStart', (queue, track) => {
           {
             name: 'Channel',
             value: track.author,
+            inline: true,
           },
           {
             name: 'Duration',
             value: track.duration,
+            inline: true,
           },
         ],
         url: track.url,
