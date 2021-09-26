@@ -29,11 +29,12 @@ player.on('connectionError', (queue, error) => {
 
 player.on('trackStart', (queue, track) => {
   // queue.metadata.send(`▶ | Started playing: **${track.title}** in **${queue.connection.channel.name}**!`);
+  console.log(track.thumbnail);
   queue.metadata.send({
     embeds: [
       {
         title: '▶ | Started playing',
-        description: track.title,
+        description: `${track.title}`,
         thumbnail: track.thumbnail,
       },
     ],
