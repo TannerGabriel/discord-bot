@@ -33,9 +33,9 @@ player.on('trackStart', (queue, track) => {
     embeds: [
       {
         author: {
-          name: 'Started playing',
+          name: '🎵 | Started playing',
         },
-        title: `▶ | ${track.title}`,
+        title: `${track.title}`,
         url: track.url,
         thumbnail: {
           url: track.thumbnail,
