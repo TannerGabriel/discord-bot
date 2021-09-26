@@ -36,6 +36,16 @@ player.on('trackStart', (queue, track) => {
           name: '🎵 | Started playing',
         },
         title: `${track.title}`,
+        fields: [
+          {
+            name: 'Channel',
+            value: track.author,
+          },
+          {
+            name: 'Duration',
+            value: track.duration,
+          },
+        ],
         url: track.url,
         thumbnail: {
           url: track.thumbnail,
