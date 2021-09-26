@@ -32,8 +32,11 @@ player.on('trackStart', (queue, track) => {
   queue.metadata.send({
     embeds: [
       {
-        title: 'Started playing',
-        description: `▶ | ${track.title}`,
+        author: {
+          name: 'Started playing',
+        },
+        title: `▶ | ${track.title}`,
+        url: track.url,
         thumbnail: {
           url: track.thumbnail,
         },
