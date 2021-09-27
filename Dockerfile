@@ -7,7 +7,7 @@ RUN apk add ffmpeg
 
 COPY package*.json ./
 
-RUN npm ci
+RUN npm install
 
 COPY . .
 
