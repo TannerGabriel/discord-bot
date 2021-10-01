@@ -20,10 +20,12 @@ console.log(client.commands);
 const player = new Player(client);
 
 player.on('error', (queue, error) => {
+  queue.metadata.send('Hogy rohadjak meg: ', error.message);
   console.log(`[${queue.guild.name}] Error emitted from the queue: ${error.message}`);
 });
 
 player.on('connectionError', (queue, error) => {
+  queue.metadata.send('Hogy rohadjak meg: ', error.message);
   console.log(`[${queue.guild.name}] Error emitted from the connection: ${error.message}`);
 });
 
