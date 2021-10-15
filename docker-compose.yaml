@@ -1,8 +1,10 @@
-version: "3.3"
+version: '3.3'
 
 services:
-    discordbot:
-        image: discordbot
-        container_name: discordbot
-        build: .
-        restart: always
+  discordbot:
+    image: discordbot
+    container_name: discordbot
+    build: .
+    restart: always
+    logging:
+      driver: journald
