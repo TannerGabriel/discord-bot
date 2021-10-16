@@ -39,7 +39,7 @@ module.exports = {
       const success = await queue.seek(time * 1000);
 
       return void interaction.followUp({
-        content: success ? `⏱ | Successfully seeked the song to ${time}` : '❌ | Something went wrong!',
+        content: success ? `⏱ | Successfully seeked the song to ${time} SECONDS` : '❌ | Something went wrong!',
       });
     } catch (error) {
       console.log(error);
