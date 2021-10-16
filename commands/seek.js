@@ -7,7 +7,7 @@ module.exports = {
     {
       name: 'time',
       type: 4, // 'NUMBER' Type
-      description: 'The time in ms you want to seek to.',
+      description: 'The time in MÁSODPERC you want to seek to.',
       required: true,
     },
   ],
