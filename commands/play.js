@@ -44,6 +44,12 @@ module.exports = {
         return void interaction.followUp({content: 'No results were found!'});
 
       const queue = await player.createQueue(interaction.guild, {
+        ytdlOptions: {
+				quality: "highest",
+				filter: "audioonly",
+				highWaterMark: 1 << 25,
+				dlChunkSize: 0,
+			},
         metadata: interaction.channel,
       });
 
