@@ -99,15 +99,19 @@ After deploying the commands you should be able to see and access them by typing
 
 `/stop`
 
-* Move song position
+* 🔀 Shuffle Queue
+
+`/shuffle`
+
+* ↕ Move song position
 
 `/move TRACK_POSITION TARGET_POSITION`
 
-* Swap song positions
+* ↔️ Swap song positions
 
 `/swap POSITION_1 POSITION_2`
 
-* Remve song
+* ⏏️ Remove song
 
 `/remove POSITION`
 
