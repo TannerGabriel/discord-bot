@@ -38,12 +38,13 @@ module.exports = {
     await interaction.deferReply();
     const queue = player.getQueue(interaction.guildId);
     if (!queue || !queue.playing) return void interaction.followUp({content: '❌ | No music is being played!'});
-    const queueNumbers = [interaction.options.get('track').value - 1, interaction.options.get('position').value - 1]
-    if (queueNumbers[0] > (queue.tracks).length || queueNumbers[1] > (queue.tracks).length) return void interaction.followUp({content: '❌ | Track number greater than queue depth!'});
+    const queueNumbers = [interaction.options.get('track').value - 1, interaction.options.get('position').value - 1];
+    if (queueNumbers[0] > queue.tracks.length || queueNumbers[1] > queue.tracks.length)
+      return void interaction.followUp({content: '❌ | Track number greater than queue depth!'});
 
     try {
-      const track = queue.remove(queueNumbers[0]); // Remove higher track first to avoid list order issues
-      queue.insert(track, queueNumbers[1])
+      const track = queue.remove(queueNumbers[0]);
+      queue.insert(track, queueNumbers[1]);
       return void interaction.followUp({
         content: `✅ | Moved **${track}**!`,
       });
