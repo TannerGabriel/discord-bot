@@ -8,6 +8,7 @@ You can find the tutorial about building a discord music bot [here](https://gabr
 
 * [Requirements](#requirements)
 * [Getting started](#getting-started)
+* [Deploy to Heroku](#deploy-to-heroku)
 * [Common errors](#common-errors)
 * [Contributing](#contributing)
 * [Author](#author)
@@ -121,6 +122,10 @@ After deploying the commands you should be able to see and access them by typing
 * Delete the latest chat messages (/purge NUM_OF_MESSAGES)
 
 <img src="./assets/playing_song.png">
+
+## Deploy to Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TannerGabriel/discord-bot)
 
 ## Common errors
 

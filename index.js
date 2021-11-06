@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 const Client = require('./client/Client');
 const config = require('./config.json');
 const {Player} = require('discord-player');
+const { getEnvVariable } = require('./utils/env_utils')
 
 const client = new Client();
 client.commands = new Discord.Collection();
@@ -51,7 +52,7 @@ client.once('ready', async () => {
 });
 
 client.on('ready', function() {
-  client.user.setActivity(config.activity, { type: config.activityType });
+  client.user.setActivity(getEnvVariable(process.env.ACTIVITY ,config.activity), { type: getEnvVariable(process.env.ACTIVITY_TYPE ,config.activityType) });
 });
 
 client.once('reconnecting', () => {
@@ -96,4 +97,4 @@ client.on('interactionCreate', async interaction => {
   }
 });
 
-client.login(config.token);
+client.login(getEnvVariable(process.env.DISCORD_TOKEN ,config.token));

@@ -1,0 +1,30 @@
+{
+    "name": "Discord.js Music Bot",
+    "description": "A simple discord bot that helps you manage your server by providing useful commands like playing music or deleting text messages.",
+    "repository": "https://github.com/TannerGabriel/discord-bot",
+    "logo": "https://discord.com/assets/ca03beabe94d8f97ba6fbf75cbb695c4.png",
+    "keywords": ["node", "express", "discord", "discord.js", "music-bot"],
+    "image": "heroku/nodejs",
+    "buildpacks": [
+      {
+        "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+      },
+      {
+        "url": "heroku/nodejs"
+      }
+    ],
+    "env": {
+      "DISCORD_TOKEN": {
+        "description": "The Discord bot token.",
+        "required": "true"
+      },
+      "ACTIVITY_TYPE": {
+        "description": "The type of Discord activity.",
+        "required": "false"
+      },
+      "ACTIVITY": {
+        "description": "The Discord activity the bot is doing/displaying.",
+        "required": "false"
+      }
+    }  
+}
