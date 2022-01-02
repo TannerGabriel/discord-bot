@@ -2,8 +2,8 @@ const {GuildMember} = require('discord.js');
 const {QueryType} = require('discord-player');
 
 module.exports = {
-  name: 'play',
-  description: 'Play a song in your channel!',
+  name: 'playtop',
+  description: 'Play a song before the next in your channel!',
   options: [
     {
       name: 'query',
@@ -39,21 +39,17 @@ module.exports = {
           requestedBy: interaction.user,
           searchEngine: QueryType.AUTO,
         })
-        .catch(() => {
-          return void interaction.followUp({
-            content: 'Some error happened!',
-          });
-        });
+        .catch(() => {});
       if (!searchResult || !searchResult.tracks.length)
         return void interaction.followUp({content: 'No results were found!'});
 
       const queue = await player.createQueue(interaction.guild, {
         ytdlOptions: {
-          quality: 'highest',
-          filter: 'audioonly',
-          highWaterMark: 1 << 25,
-          dlChunkSize: 0,
-        },
+        quality: "highest",
+        filter: "audioonly",
+        highWaterMark: 1 << 25,
+        dlChunkSize: 0,
+      },
         metadata: interaction.channel,
       });
 
@@ -68,9 +64,8 @@ module.exports = {
 
       await interaction.followUp({
         content: `⏱ | Loading your ${searchResult.playlist ? 'playlist' : 'track'}...`,
-        ephemeral: true,
       });
-      searchResult.playlist ? queue.addTracks(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
+      searchResult.playlist ? queue.insert(searchResult.tracks, 0) : queue.insert(searchResult.tracks[0], 0);
       if (!queue.playing) await queue.play();
     } catch (error) {
       console.log(error);

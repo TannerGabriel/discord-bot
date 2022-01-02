@@ -99,6 +99,22 @@ After deploying the commands you should be able to see and access them by typing
 
 `/stop`
 
+* 🔀 Shuffle Queue
+
+`/shuffle`
+
+* ↕ Move song position
+
+`/move TRACK_POSITION TARGET_POSITION`
+
+* ↔️ Swap song positions
+
+`/swap POSITION_1 POSITION_2`
+
+* ⏏️ Remove song
+
+`/remove POSITION`
+
 * Now Playing (/nowplaying)
 * Get information about a user (/userinfo USER)
 * Ban a player (/ban USER)

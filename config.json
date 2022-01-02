@@ -1,5 +1,5 @@
 {
-  "prefix": "!",
+  "token": "YOUR_TOKEN",
   "activityType": "PLAYING",
-  "activity": "Még nagyon alpha"
+  "activity": "your music selections"
 }
