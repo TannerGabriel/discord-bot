@@ -16,14 +16,14 @@
   "author": "Gabriel Tanner",
   "license": "MIT",
   "dependencies": {
-    "@discordjs/opus": "^0.6.0",
-    "discord-player": "^5.1.0",
-    "discord.js": "^13.1.0",
+    "@discordjs/opus": "^0.7.0",
+    "discord-player": "^5.2.0",
+    "discord.js": "^13.6.0",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
-    "ytdl-core": "^4.9.1"
+    "ytdl-core": "^4.10.0"
   },
   "devDependencies": {
-    "prettier": "2.4.1"
+    "prettier": "2.5.1"
   }
 }
