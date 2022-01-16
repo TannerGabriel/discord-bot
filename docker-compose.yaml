@@ -1,0 +1,9 @@
+version: '3.3'
+
+services:
+  discord-bot:
+    build:
+        context: ./
+        dockerfile: Dockerfile
+    container_name: discord-bot
+    restart: always
