@@ -3,12 +3,12 @@ const Discord = require("discord.js");
 
 module.exports = {
     name: 'weather',
-    description: 'Weather info of your entered location',
+    description: 'Weather info of entered location',
     options: [
         {
             name: 'city',
             type: 3,
-            description: '[City] or [City, State]',
+            description: '[City/Abbreviation] or [City, State]',
             required: true,
         },
     ],
@@ -19,7 +19,7 @@ module.exports = {
         function(error, result){
 
             if(error) return interaction.channel.send(error)
-            if(!id) return interaction.channel.send("Location not detected")
+            if(!id) return interaction.channel.send("Location not valid")
         
             if(result === undefined || result.length === 0) 
                 return interaction.channel.send("Location not specified")
@@ -28,7 +28,7 @@ module.exports = {
             let location = result[0].location
 
             const embed = new Discord.MessageEmbed()
-                .setTitle(`Showing Weather Info for ${current.observationpoint}`)
+                .setTitle(`Showing Weather Info in ${current.observationpoint}`)
                 .setDescription(current.skytext)
                 .setThumbnail(current.imageUrl)
                 .setColor("#00ff00")
@@ -44,7 +44,7 @@ module.exports = {
         })
 
         return void interaction.reply({
-            content: 'Here is the weather info',
+            content: 'Here is the weather happening now',
             ephemeral: false,
         })
     },
