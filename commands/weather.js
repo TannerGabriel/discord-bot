@@ -19,10 +19,8 @@ module.exports = {
         function(error, result){
 
             if(error) return interaction.channel.send(error)
-            if(!id) return interaction.channel.send("Location not valid")
-        
             if(result === undefined || result.length === 0) 
-                return interaction.channel.send("Location not specified")
+                return interaction.send("Location not valid or does not exist")
 
             let current = result[0].current
             let location = result[0].location
@@ -38,14 +36,9 @@ module.exports = {
                 .addField("Humidity: ", `${current.humidity}%`, true)
                 .addField("Timezone: ", `UTC${location.timezone}`, true)
 
-            interaction.channel.send({
+            interaction.send({
                 embeds: [embed],
             });
-        })
-
-        return void interaction.reply({
-            content: 'Here is the weather happening now',
-            ephemeral: false,
         })
     },
 };
