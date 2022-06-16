@@ -21,6 +21,7 @@
     "discord.js": "^13.6.0",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
+    "weather-js": "^2.0.0",
     "ytdl-core": "^4.11.0"
   },
   "devDependencies": {
