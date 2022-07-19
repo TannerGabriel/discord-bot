@@ -26,7 +26,7 @@ module.exports = {
     if (!queue || !queue.playing) return void interaction.followUp({content: '❌ | No music is being played!'});
     try {
       queue.shuffle();
-      trimString = (str, max) => (str.length > max ? `${str.slice(0, max - 3)}...` : str);
+      const trimString = (str, max) => (str.length > max ? `${str.slice(0, max - 3)}...` : str);
       return void interaction.followUp({
         embeds: [
           {
