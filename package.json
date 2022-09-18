@@ -16,9 +16,9 @@
   "author": "Gabriel Tanner",
   "license": "MIT",
   "dependencies": {
-    "@discordjs/opus": "^0.7.0",
-    "discord-player": "^5.2.2",
-    "discord.js": "^13.6.0",
+    "@discordjs/opus": "^0.8.0",
+    "discord-player": "^5.3.1",
+    "discord.js": "^14.3.0",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "ytdl-core": "^4.11.0"

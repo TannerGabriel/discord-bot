@@ -1,16 +1,18 @@
+const {ApplicationCommandOptionType } = require('discord.js');
+
 module.exports = {
   name: 'ban',
   description: 'Ban a player',
   options: [
     {
       name: 'user',
-      type: 6, //USER Type
+      type: ApplicationCommandOptionType.User,
       description: 'The user you want to ban',
       required: true,
     },
   ],
   execute(interaction, client) {
-    const member = interaction.options.get('user').value;
+    const member = interaction.options.getUser('user');
 
     if (!member) {
       return message.reply('You need to mention the member you want to ban him');
@@ -20,7 +22,7 @@ module.exports = {
       return message.reply("I can't ban this user.");
     }
 
-    const userinfo = client.users.cache.get(member);
+    const userinfo = client.users.cache.getMember(member);
 
     return interaction.guild.members
       .ban(member)

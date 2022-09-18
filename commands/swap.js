@@ -1,4 +1,4 @@
-const {GuildMember} = require('discord.js');
+const {GuildMember, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = {
   name: 'swap',
@@ -6,13 +6,13 @@ module.exports = {
   options: [
     {
       name: 'track1',
-      type: 4, // 'INTEGER' Type
+      type: ApplicationCommandOptionType.Integer,
       description: 'The track number you want to swap',
       required: true,
     },
     {
       name: 'track2',
-      type: 4, // 'INTEGER' Type
+      type: ApplicationCommandOptionType.Integer,
       description: 'The track number you want to swap',
       required: true,
     },
@@ -26,8 +26,8 @@ module.exports = {
     }
 
     if (
-      interaction.guild.me.voice.channelId &&
-      interaction.member.voice.channelId !== interaction.guild.me.voice.channelId
+      interaction.guild.members.me.voice.channelId &&
+      interaction.member.voice.channelId !== interaction.guild.members.me.voice.channelId
     ) {
       return void interaction.reply({
         content: 'You are not in my voice channel!',
@@ -38,7 +38,7 @@ module.exports = {
     await interaction.deferReply();
     const queue = player.getQueue(interaction.guildId);
     if (!queue || !queue.playing) return void interaction.followUp({content: '❌ | No music is being played!'});
-    const queueNumbers = [interaction.options.get('track1').value - 1, interaction.options.get('track2').value - 1];
+    const queueNumbers = [interaction.options.getInteger('track1') - 1, interaction.options.getInteger('track2') - 1];
     // Sort so the lowest number is first for swap logic to work
     queueNumbers.sort(function (a, b) {
       return a - b;

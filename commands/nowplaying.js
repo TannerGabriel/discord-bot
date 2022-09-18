@@ -12,8 +12,8 @@ module.exports = {
     }
 
     if (
-      interaction.guild.me.voice.channelId &&
-      interaction.member.voice.channelId !== interaction.guild.me.voice.channelId
+      interaction.guild.members.me.voice.channelId &&
+      interaction.member.voice.channelId !== interaction.guild.members.me.voice.channelId
     ) {
       return void interaction.reply({
         content: 'You are not in my voice channel!',
