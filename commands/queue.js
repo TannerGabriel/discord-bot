@@ -30,7 +30,7 @@ module.exports = {
                 embeds: [
                   {
                     title: 'Now Playing',
-                    description: trimString(`The Current song playing is 🎶 | **${queue.current.title}**! \n 🎶 | **${queue}**! `, 4095),
+                    description: trimString(`The Current song playing is 🎶 | **${queue.current.title}**! \n 🎶 | ${queue}! `, 4095),
                   }
                 ]
               })
