@@ -2,12 +2,13 @@
 
 A simple discord bot that helps you manage your server by providing useful commands like playing music or deleting text messages.
 
-You can find the tutorial about building a discord music bot [here](https://gabrieltanner.org/blog/dicord-music-bot). 
+You can find the tutorial about building a discord music bot [here](https://gabrieltanner.org/blog/dicord-music-bot).
 
 ## Table of content
 
 * [Requirements](#requirements)
 * [Getting started](#getting-started)
+* [Features & Commands](#features--commands)
 * [Common errors](#common-errors)
 * [Contributing](#contributing)
 * [Author](#author)
@@ -37,9 +38,11 @@ cd discord-bot/
 npm install
 ```
 
-## Required permissions
+### Required permissions
 
-**Important:** Make sure that your bot has the `applications.commands` application scope enabled, which can be found under the `OAuth2` tap on the [developer portal](https://discord.com/developers/applications/)
+Make sure that your bot has the `applications.commands` application scope enabled, which can be found under the `OAuth2` tab on the [developer portal](https://discord.com/developers/applications/)
+
+Enable the `Server Members Intent` and `Message Content Intent` which can be found under the `Bot` tab on the [developer portal](https://discord.com/developers/applications/)
 
 ### Configuration
 
@@ -61,7 +64,7 @@ docker build --tag discordbot .
 docker run -d discordbot
 ```
 
-## Deploying commands
+### Deploying commands
 
 Before you can use the bots slash command you first need to add them to your Discord server. You can use the `!deploy` command to do so.
 
@@ -75,52 +78,127 @@ After deploying the commands you should be able to see and access them by typing
 
 > Note: The repository now uses the new Discord slash commands
 
-* 🎶 Play music from YouTube via url
+* [Play](#play)
+* [Pause](#pause)
+* [Resume](#resume)
+* [Now Playing](#now-playing)
+* [Queue](#queue)
+* [Shuffle](#shuffle)
+* [Loop](#loop)
+* [Skip](#skip)
+* [Remove](#remove)
+* [Move](#move)
+* [Swap](#swap)
+* [Stop](#stop)
+* [Volume](#volume)
+* [Help](#help)
+* [Userinfo](#userinfo)
+* [Ban](#ban)
+* [Purge](#purge)
 
-`/play YOUTUBE_URL`
+### Play
 
-* 🎶 Play music from using song name
+▶️ Play music from YouTube via url or search by song name, added to the bottom of the queue.
 
+`/play YOUTUBE_URL`  
 `/play SONG_NAME`
 
-* 📃 Pause music
+▶️ Play music via url or using song name, this places it next at the top of the queue (position 1).
+
+`/playtop YOUTUBE_URL`  
+`/playtop SONG_NAME`
+
+<img src="./assets/playing_song.png">
+
+### Pause
+
+⏸️ Pause music
 
 `/pause`
 
-* 🎓 Resume music
+### Resume
+
+▶️ Resume playing paused music
 
 `/resume`
 
-* 💿 Skip song
+### Now Playing
 
-`/skip`
+🎶 Display current playing song
 
-* 🔇 Stop music
+`/nowplaying`
 
-`/stop`
+### Queue
 
-* 🔀 Shuffle Queue
+🗒️ Display the current queue
+
+`/queue`
+
+### Shuffle
+
+🔀 Shuffle the current queue
 
 `/shuffle`
 
-* ↕ Move song position
+### Loop
 
-`/move TRACK_POSITION TARGET_POSITION`
+🔁 Loop/Repeat controls. Off, Track and Queue
 
-* ↔️ Swap song positions
+`/loop MODE`
 
-`/swap POSITION_1 POSITION_2`
+### Skip
 
-* ⏏️ Remove song
+⏭️ Skip the current playing song and play the next in queue
+
+`/skip`
+
+### Remove
+
+⏏ Remove song from the queue
 
 `/remove POSITION`
 
-* Now Playing (/nowplaying)
-* Get information about a user (/userinfo USER)
-* Ban a player (/ban USER)
-* Delete the latest chat messages (/purge NUM_OF_MESSAGES)
+### Move
 
-<img src="./assets/playing_song.png">
+↕ Move song position. This shifts all other songs up or down one, depending on direction you move the target song.
+
+`/move TRACK_POSITION TARGET_POSITION`
+
+### Swap
+
+↔️ Swap two songs current positions with each other
+
+`/swap POSITION_1 POSITION_2`
+
+### Stop
+
+🔇 Stop playing (disconnects bot from voice channel)
+
+`/stop`
+
+### Volume
+
+🔊 Adjust the music bot volume between 0-200
+
+`/volume NUMBER`
+
+### Help
+
+❓ Display commands
+
+`/help`
+
+### Userinfo
+
+* Get information about a user (/userinfo USER)
+
+### Ban
+
+* Ban a player (/ban USER)
+
+### Purge
+
+* Delete the latest chat messages (/purge NUM_OF_MESSAGES)
 
 ## Common errors
 

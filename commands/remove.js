@@ -1,4 +1,4 @@
-const {GuildMember} = require('discord.js');
+const {GuildMember, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = {
   name: 'remove',
@@ -6,7 +6,7 @@ module.exports = {
   options: [
     {
       name: 'number',
-      type: 4, // 'INTEGER' Type
+      type: ApplicationCommandOptionType.Integer,
       description: 'The queue number you want to remove',
       required: true,
     },
@@ -20,8 +20,8 @@ module.exports = {
     }
 
     if (
-      interaction.guild.me.voice.channelId &&
-      interaction.member.voice.channelId !== interaction.guild.me.voice.channelId
+      interaction.guild.members.me.voice.channelId &&
+      interaction.member.voice.channelId !== interaction.guild.members.me.voice.channelId
     ) {
       return void interaction.reply({
         content: 'You are not in my voice channel!',
@@ -32,7 +32,7 @@ module.exports = {
     await interaction.deferReply();
     const queue = player.getQueue(interaction.guildId);
     if (!queue || !queue.playing) return void interaction.followUp({content: '❌ | No music is being played!'});
-    const number = interaction.options.get('number').value - 1;
+    const number = interaction.options.getInteger('number') - 1;
     if (number > queue.tracks.length)
       return void interaction.followUp({content: '❌ | Track number greater than queue depth!'});
     const removedTrack = queue.remove(number);

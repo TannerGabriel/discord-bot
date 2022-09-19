@@ -15,8 +15,8 @@ module.exports = {
           }
     
           if (
-            interaction.guild.me.voice.channelId &&
-            interaction.member.voice.channelId !== interaction.guild.me.voice.channelId
+            interaction.guild.members.me.voice.channelId &&
+            interaction.member.voice.channelId !== interaction.guild.members.me.voice.channelId
           ) {
             return void interaction.reply({
               content: 'You are not in my voice channel!',
@@ -30,7 +30,7 @@ module.exports = {
                 embeds: [
                   {
                     title: 'Now Playing',
-                    description: trimString(`The Current song playing is 🎶 | **${queue.current.title}**! \n 🎶 | **${queue}**! `, 4095),
+                    description: trimString(`The Current song playing is 🎶 | **${queue.current.title}**! \n 🎶 | ${queue}! `, 4095),
                   }
                 ]
               })

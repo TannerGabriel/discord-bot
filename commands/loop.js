@@ -1,4 +1,4 @@
-const {GuildMember} = require('discord.js');
+const {GuildMember, ApplicationCommandOptionType} = require('discord.js');
 const {QueueRepeatMode} = require('discord-player');
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
   options: [
     {
       name: 'mode',
-      type: 'INTEGER',
+      type: ApplicationCommandOptionType.Integer,
       description: 'Loop type',
       required: true,
       choices: [
@@ -40,8 +40,8 @@ module.exports = {
       }
 
       if (
-        interaction.guild.me.voice.channelId &&
-        interaction.member.voice.channelId !== interaction.guild.me.voice.channelId
+        interaction.guild.members.me.voice.channelId &&
+        interaction.member.voice.channelId !== interaction.guild.members.me.voice.channelId
       ) {
         return void interaction.reply({
           content: 'You are not in my voice channel!',
@@ -56,7 +56,7 @@ module.exports = {
         return void interaction.followUp({content: '❌ | No music is being played!'});
       }
 
-      const loopMode = interaction.options.get('mode').value;
+      const loopMode = interaction.options.getString('mode');
       const success = queue.setRepeatMode(loopMode);
       const mode = loopMode === QueueRepeatMode.TRACK ? '🔂' : loopMode === QueueRepeatMode.QUEUE ? '🔁' : '▶';
 

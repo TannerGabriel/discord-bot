@@ -1,4 +1,4 @@
-const {GuildMember} = require('discord.js');
+const {GuildMember, ApplicationCommandOptionType } = require('discord.js');
 const {QueryType} = require('discord-player');
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
   options: [
     {
       name: 'query',
-      type: 3, // 'STRING' Type
+      type: ApplicationCommandOptionType.String,
       description: 'The song you want to play',
       required: true,
     },
@@ -22,8 +22,8 @@ module.exports = {
       }
 
       if (
-        interaction.guild.me.voice.channelId &&
-        interaction.member.voice.channelId !== interaction.guild.me.voice.channelId
+        interaction.guild.members.me.voice.channelId &&
+        interaction.member.voice.channelId !== interaction.guild.members.me.voice.channelId
       ) {
         return void interaction.reply({
           content: 'You are not in my voice channel!',
@@ -33,7 +33,7 @@ module.exports = {
 
       await interaction.deferReply();
 
-      const query = interaction.options.get('query').value;
+      const query = interaction.options.getString('query');
       const searchResult = await player
         .search(query, {
           requestedBy: interaction.user,
@@ -47,7 +47,7 @@ module.exports = {
         ytdlOptions: {
 				quality: "highest",
 				filter: "audioonly",
-				highWaterMark: 1 << 25,
+				highWaterMark: 1 << 30,
 				dlChunkSize: 0,
 			},
         metadata: interaction.channel,

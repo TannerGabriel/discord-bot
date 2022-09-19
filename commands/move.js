@@ -1,4 +1,4 @@
-const {GuildMember} = require('discord.js');
+const {GuildMember, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = {
   name: 'move',
@@ -6,13 +6,13 @@ module.exports = {
   options: [
     {
       name: 'track',
-      type: 4, // 'INTEGER' Type
+      type: ApplicationCommandOptionType.Integer,
       description: 'The track number you want to move',
       required: true,
     },
     {
       name: 'position',
-      type: 4, // 'INTEGER' Type
+      type: ApplicationCommandOptionType.Integer,
       description: 'The position to move it to',
       required: true,
     },
@@ -26,8 +26,8 @@ module.exports = {
     }
 
     if (
-      interaction.guild.me.voice.channelId &&
-      interaction.member.voice.channelId !== interaction.guild.me.voice.channelId
+      interaction.guild.members.me.voice.channelId &&
+      interaction.member.voice.channelId !== interaction.guild.members.me.voice.channelId
     ) {
       return void interaction.reply({
         content: 'You are not in my voice channel!',
@@ -38,7 +38,7 @@ module.exports = {
     await interaction.deferReply();
     const queue = player.getQueue(interaction.guildId);
     if (!queue || !queue.playing) return void interaction.followUp({content: '❌ | No music is being played!'});
-    const queueNumbers = [interaction.options.get('track').value - 1, interaction.options.get('position').value - 1];
+    const queueNumbers = [interaction.options.getInteger('track') - 1, interaction.options.getInteger('position') - 1];
     if (queueNumbers[0] > queue.tracks.length || queueNumbers[1] > queue.tracks.length)
       return void interaction.followUp({content: '❌ | Track number greater than queue depth!'});
 
