@@ -36,6 +36,9 @@ cd discord-bot/
 
 # Install the dependencies
 npm install
+
+# Configure Discord Bot Token
+echo "DISCORD_TOKEN='INSERT_YOUR_TOKEN_HERE'" > .env
 ```
 
 ### Required permissions

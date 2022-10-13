@@ -19,6 +19,7 @@
     "@discordjs/opus": "^0.8.0",
     "discord-player": "^5.3.2",
     "discord.js": "^14.6.0",
+    "dotenv": "^16.0.3",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "ytdl-core": "^4.11.0"
