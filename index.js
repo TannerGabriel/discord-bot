@@ -6,6 +6,8 @@ const Client = require('./client/Client');
 const config = require('./config.json');
 const {Player} = require('discord-player');
 
+const { ActivityType } = require('discord.js');
+
 const client = new Client();
 client.commands = new Discord.Collection();
 
@@ -53,7 +55,10 @@ client.once('ready', async () => {
 });
 
 client.on('ready', function() {
-  client.user.setActivity(config.activity, { type: config.activityType });
+  client.user.setPresence({
+    activities: [{ name: config.activity, type: config.activityType }],
+    status: 'Playing music',
+  });
 });
 
 client.once('reconnecting', () => {
