@@ -56,8 +56,8 @@ client.once('ready', async () => {
 
 client.on('ready', function() {
   client.user.setPresence({
-    activities: [{ name: config.activity, type: config.activityType }],
-    status: 'Playing music',
+    activities: [{ name: config.activity, type: Number(config.activityType) }],
+    status: Discord.PresenceUpdateStatus.Online,
   });
 });
 
