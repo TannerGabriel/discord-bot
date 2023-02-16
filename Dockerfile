@@ -1,14 +1,11 @@
-FROM node:17.4.0
+FROM node:18 AS build
+WORKDIR /app
+COPY . /app
+RUN npm ci --omit=dev
 
-WORKDIR /usr/src/app
-
-RUN apt-get update || : && apt-get install python -y
-RUN apt-get install ffmpeg -y
-
-COPY package*.json ./
-
-RUN npm ci
-
-COPY . .
-
-CMD [ "node", "index.js" ]
+FROM gcr.io/distroless/nodejs18
+WORKDIR /app
+COPY --from=build /app /app
+COPY --from=mwader/static-ffmpeg:5.1.2 /ffmpeg /bin/
+USER nonroot
+CMD [ "index.js" ]
