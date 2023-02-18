@@ -90,7 +90,7 @@ A mutliarch docker image for `amd64` and `arm64` based on the main branch is ava
 docker pull ghcr.io/TannerGabriel/discord-bot:latest
 ```
 
-A Github Action automatically builds and push `amd64` and `arm64` to ghcr.io, all builds are based on the master branch.
+A Github Action automatically builds and push `amd64` and `arm64` to ghcr.io, all builds are based on the main branch.
 
 Only `:latest` tag is supported, otherwise use SHA256 from https://github.com/TannerGabriel/discord-bot/pkgs/container/discord-bot for pinning to a specific commit.
 
