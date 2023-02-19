@@ -28,4 +28,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/TannerGabriel/discord-bot:latest
+            ghcr.io/tannergabriel/discord-bot:latest
