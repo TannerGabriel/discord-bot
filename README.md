@@ -8,6 +8,7 @@ You can find the tutorial about building a discord music bot [here](https://gabr
 
 * [Requirements](#requirements)
 * [Getting started](#getting-started)
+* [Docker](#docker)
 * [Features & Commands](#features--commands)
 * [Common errors](#common-errors)
 * [Contributing](#contributing)
@@ -80,6 +81,18 @@ Before you can use the bots slash command you first need to add them to your Dis
 After deploying the commands you should be able to see and access them by typing a slash:
 
 <img src="./assets/commands.png">
+
+## Docker
+
+A mutliarch docker image for `amd64` and `arm64` based on the main branch is available from Github Container Registry:
+
+```bash
+docker pull ghcr.io/TannerGabriel/discord-bot:latest
+```
+
+A Github Action automatically builds and push `amd64` and `arm64` to ghcr.io, all builds are based on the main branch.
+
+Only `:latest` tag is supported, otherwise use SHA256 from https://github.com/TannerGabriel/discord-bot/pkgs/container/discord-bot for pinning to a specific commit.
 
 ## Features & Commands
 
