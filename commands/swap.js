@@ -1,6 +1,6 @@
-const {GuildMember, ApplicationCommandOptionType } = require('discord.js');
+import {GuildMember, ApplicationCommandOptionType} from 'discord.js';
 
-module.exports = {
+export default{
   name: 'swap',
   description: 'swap song positions in the queue!',
   options: [

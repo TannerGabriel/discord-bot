@@ -4,9 +4,11 @@
   "repository": "https://github.com/TannerGabriel/discord-music-bot.git",
   "description": "A simple discord music bot",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "prettier --write \"**/*.js\""
+    "lint": "prettier --write \"**/*.js\"",
+    "start": "node index.js"
   },
   "keywords": [
     "discord",

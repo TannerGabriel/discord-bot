@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   name: 'purge',
   description: 'Delete the last messages in all chats.',
   options: [

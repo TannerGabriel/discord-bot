@@ -1,7 +1,7 @@
-const {GuildMember, ApplicationCommandOptionType} = require('discord.js');
-const {QueryType} = require('discord-player');
+import {GuildMember, ApplicationCommandOptionType} from 'discord.js';
+import {QueryType} from 'discord-player';
 
-module.exports = {
+export default{
   name: 'playtop',
   description: 'Play a song before the next in your channel!',
   options: [

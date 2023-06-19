@@ -1,6 +1,6 @@
-const {GuildMember} = require('discord.js');
+import {GuildMember} from 'discord.js';
 
-module.exports = {
+export default{
   name: 'stop',
   description: 'Stop all songs in the queue!',
   async execute(interaction, player) {

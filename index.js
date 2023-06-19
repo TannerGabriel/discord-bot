@@ -1,12 +1,11 @@
-require('dotenv').config()
+import dotenv from 'dotenv';
+dotenv.config();
 
-const fs = require('fs');
-const Discord = require('discord.js');
-const Client = require('./client/Client');
-const config = require('./config.json');
-const {Player} = require('discord-player');
-
-const { ActivityType } = require('discord.js');
+import fs from 'fs';
+import Discord from 'discord.js';
+import Client from './client/Client.js';
+import config from './config.json' assert { type: "json" };
+import { Player } from 'discord-player';
 
 const client = new Client();
 client.commands = new Discord.Collection();
@@ -14,8 +13,9 @@ client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
+  import(`./commands/${file}`).then((command) => {
+    client.commands.set(command.name, command);
+  });
 }
 
 console.log(client.commands);

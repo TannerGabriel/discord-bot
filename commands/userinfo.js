@@ -1,6 +1,6 @@
-const {ApplicationCommandOptionType } = require('discord.js');
+import {ApplicationCommandOptionType } from 'discord.js';
 
-module.exports = {
+export default{
   name: 'userinfo',
   description: 'Get information about a user.',
   options: [

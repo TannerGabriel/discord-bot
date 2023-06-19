@@ -1,6 +1,6 @@
-const {GuildMember} = require('discord.js');
+import {GuildMember} from 'discord.js';
 
-module.exports = {
+export default{
   name: 'nowplaying',
   description: 'Get the song that is currently playing.',
   async execute(interaction, player) {

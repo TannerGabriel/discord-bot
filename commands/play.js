@@ -1,7 +1,7 @@
-const {GuildMember, ApplicationCommandOptionType } = require('discord.js');
-const {QueryType} = require('discord-player');
+import { GuildMember, ApplicationCommandOptionType } from 'discord.js';
+import { QueryType } from 'discord-player';
 
-module.exports = {
+export default{
   name: 'play',
   description: 'Play a song in your channel!',
   options: [
@@ -39,17 +39,17 @@ module.exports = {
           requestedBy: interaction.user,
           searchEngine: QueryType.AUTO,
         })
-        .catch(() => {});
+        .catch(() => { });
       if (!searchResult || !searchResult.tracks.length)
-        return void interaction.followUp({content: 'No results were found!'});
+        return void interaction.followUp({ content: 'No results were found!' });
 
       const queue = await player.createQueue(interaction.guild, {
         ytdlOptions: {
-				quality: "highest",
-				filter: "audioonly",
-				highWaterMark: 1 << 30,
-				dlChunkSize: 0,
-			},
+          quality: "highest",
+          filter: "audioonly",
+          highWaterMark: 1 << 30,
+          dlChunkSize: 0,
+        },
         metadata: interaction.channel,
       });
 

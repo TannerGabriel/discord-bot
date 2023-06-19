@@ -1,6 +1,6 @@
-const fs = require('fs');
+import fs from 'fs';
 
-module.exports = {
+export default{
   name: 'help',
   description: 'List all available commands.',
   execute(interaction) {
