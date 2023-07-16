@@ -14,8 +14,6 @@ module.exports = {
   ],
   async execute(interaction) {
     try {
-      const channel = interaction.member.voice.channel;
-
       const player = useMainPlayer()
 
       if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
@@ -63,44 +61,9 @@ module.exports = {
                 content: `⏱ | Loading your ${searchResult.playlist ? 'playlist' : 'track'}...`,
             });
 		} catch (error) {
-			//await interaction.editReply({ content: `${this.container.client.dev.error} | An **error** has occurred` });
+            // TODO: Return error via interaction
 			return console.log(error);
 		}
-
-      /*const queue = player?.queues.create(interaction.guild.id, {
-        metadata: {
-          channel: interaction.channel,
-          client: interaction.guild?.members.me
-        },
-        leaveOnEmptyCooldown: 300000,
-        leaveOnEmpty: true,
-        leaveOnEnd: false,
-        bufferingTimeout: 0,
-        volume: 10,
-        defaultFFmpegFilters: ['lofi', 'bassboost', 'normalizer'],
-        ytdlOptions: {
-          quality: "highest",
-          filter: "audioonly",
-          highWaterMark: 1 << 30,
-          dlChunkSize: 0,
-        },
-      });*/
-
-
-      /*try {
-        if (!queue.connection) await queue.connect(interaction.member.voice.channel);
-      } catch {
-        queue.delete();
-        return void interaction.followUp({
-          content: 'Could not join your voice channel!',
-        });
-      }
-
-      await interaction.followUp({
-        content: `⏱ | Loading your ${searchResult.playlist ? 'playlist' : 'track'}...`,
-      });
-      searchResult.playlist ? queue.addTrack(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
-      if (!queue.playing) await queue.node.play();*/
     } catch (error) {
       await interaction.followUp({
         content: 'There was an error trying to execute that command: ' + error.message,
