@@ -22,6 +22,32 @@ console.log(client.commands);
 
 const player = new Player(client);
 
+player.on('debug', async (message) => {
+    // Emitted when the player sends debug info
+    // Useful for seeing what dependencies, extractors, etc are loaded
+    console.log(`General player debug event: ${message}`);
+});
+
+player.events.on('debug', async (queue, message) => {
+    // Emitted when the player queue sends debug info
+    // Useful for seeing what state the current queue is at
+    console.log(`Player debug event: ${message}`);
+});
+
+player.events.on('error', (queue, error) => {
+    // Emitted when the player queue encounters error
+    console.log(`General player error event: ${error.message}`);
+    console.log(error);
+});
+
+player.events.on('playerError', (queue, error) => {
+    // Emitted when the audio player errors while streaming audio track
+    console.log(`Player error event: ${error.message}`);
+    console.log(error);
+});
+
+player.extractors.loadDefault()
+
 player.on('connectionCreate', (queue) => {
     queue.connection.voiceConnection.on('stateChange', (oldState, newState) => {
       const oldNetworking = Reflect.get(oldState, 'networking');
@@ -39,6 +65,10 @@ player.on('connectionCreate', (queue) => {
 
 player.on('error', (queue, error) => {
   console.log(`[${queue.guild.name}] Error emitted from the queue: ${error.message}`);
+});
+
+player.on('songAdd', (queue, song) => {
+    queue.metadata.send(`🎶 | Song **${song.name}** added to the queue!`);
 });
 
 player.on('connectionError', (queue, error) => {
@@ -112,7 +142,7 @@ client.on('interactionCreate', async interaction => {
     }
   } catch (error) {
     console.error(error);
-    interaction.followUp({
+    await interaction.followUp({
       content: 'There was an error trying to execute that command!',
     });
   }
