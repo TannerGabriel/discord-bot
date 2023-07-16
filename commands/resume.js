@@ -1,4 +1,5 @@
 const {GuildMember} = require('discord.js');
+const {useQueue} = require("discord-player");
 
 module.exports = {
   name: 'resume',
@@ -22,12 +23,12 @@ module.exports = {
     }
 
     await interaction.deferReply();
-    const queue = player.getQueue(interaction.guildId);
-    if (!queue || !queue.playing)
+    const queue = useQueue(interaction.guild.id)
+    if (!queue || !queue.currentTrack)
       return void interaction.followUp({
         content: '❌ | No music is being played!',
       });
-    const success = queue.setPaused(false);
+    const success = queue.node.resume()
     return void interaction.followUp({
       content: success ? '▶ | Resumed!' : '❌ | Something went wrong!',
     });

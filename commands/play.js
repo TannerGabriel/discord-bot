@@ -12,7 +12,7 @@ module.exports = {
       required: true,
     },
   ],
-  async execute(interaction, player1) {
+  async execute(interaction) {
     try {
       const channel = interaction.member.voice.channel;
 
@@ -59,11 +59,9 @@ module.exports = {
 				}
 			});
 
-			return interaction.editReply({
-				content: `${this.container.client.dev.success} | Successfully enqueued${
-					res.track.playlist ? ` **track(s)** from: **${res.track.playlist.title}**` : `: **${res.track.title}**`
-				}`
-			});
+			await interaction.followUp({
+                content: `⏱ | Loading your ${searchResult.playlist ? 'playlist' : 'track'}...`,
+            });
 		} catch (error) {
 			//await interaction.editReply({ content: `${this.container.client.dev.error} | An **error** has occurred` });
 			return console.log(error);
@@ -104,7 +102,6 @@ module.exports = {
       searchResult.playlist ? queue.addTrack(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
       if (!queue.playing) await queue.node.play();*/
     } catch (error) {
-      console.log(error);
       await interaction.followUp({
         content: 'There was an error trying to execute that command: ' + error.message,
       });
