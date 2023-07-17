@@ -6,7 +6,7 @@ const Client = require('./client/Client');
 const config = require('./config.json');
 const {Player} = require('discord-player');
 
-const { ActivityType } = require('discord.js');
+const {ActivityType} = require('discord.js');
 
 const client = new Client();
 client.commands = new Discord.Collection();
@@ -14,42 +14,19 @@ client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
+    const command = require(`./commands/${file}`);
+    client.commands.set(command.name, command);
 }
 
 console.log(client.commands);
 
 const player = new Player(client);
 
-player.on('debug', async (message) => {
-    // Emitted when the player sends debug info
-    // Useful for seeing what dependencies, extractors, etc are loaded
-    console.log(`General player debug event: ${message}`);
-});
+player.extractors.loadDefault().then(r => console.log('Extractors loaded successfully'))
 
-player.events.on('debug', async (queue, message) => {
-    // Emitted when the player queue sends debug info
-    // Useful for seeing what state the current queue is at
-    console.log(`Player debug event: ${message}`);
-});
-
-player.events.on('error', (queue, error) => {
-    // Emitted when the player queue encounters error
-    console.log(`General player error event: ${error.message}`);
-    console.log(error);
-});
-
-player.events.on('playerError', (queue, error) => {
-    // Emitted when the audio player errors while streaming audio track
-    console.log(`Player error event: ${error.message}`);
-    console.log(error);
-});
-
-player.extractors.loadDefault()
-
-player.on('connectionCreate', (queue) => {
-    queue.connection.voiceConnection.on('stateChange', (oldState, newState) => {
+// Still needs to be refactored for 0.6
+/*player.events.on('connection', (queue) => {
+    queue.connection.connec.voiceConnection.on('stateChange', (oldState, newState) => {
       const oldNetworking = Reflect.get(oldState, 'networking');
       const newNetworking = Reflect.get(newState, 'networking');
 
@@ -61,91 +38,111 @@ player.on('connectionCreate', (queue) => {
       oldNetworking?.off('stateChange', networkStateChangeHandler);
       newNetworking?.on('stateChange', networkStateChangeHandler);
     });
+});*/
+
+player.events.on('error', (queue, error) => {
+    console.log(`[${queue.guild.name}] Error emitted from the queue: ${error.message}`);
 });
 
-player.on('error', (queue, error) => {
-  console.log(`[${queue.guild.name}] Error emitted from the queue: ${error.message}`);
+
+player.events.on('audioTrackAdd', (queue, song) => {
+    queue.metadata.channel.send(`🎶 | Song **${song.title}** added to the queue!`);
 });
 
-player.on('songAdd', (queue, song) => {
-    queue.metadata.send(`🎶 | Song **${song.name}** added to the queue!`);
+player.events.on('error', (queue, error) => {
+    console.log(`[${queue.guild.name}] Error emitted from the connection: ${error.message}`);
 });
 
-player.on('connectionError', (queue, error) => {
-  console.log(`[${queue.guild.name}] Error emitted from the connection: ${error.message}`);
+player.events.on('playerStart', (queue, track) => {
+    queue.metadata.channel.send(`▶ | Started playing: **${track.title}** in **${queue.metadata.channel}**!`);
 });
 
-player.on('trackStart', (queue, track) => {
-  queue.metadata.send(`▶ | Started playing: **${track.title}** in **${queue.connection.channel.name}**!`);
+player.events.on('audioTracksAdd', (queue, track) => {
+    queue.metadata.channel.send(`🎶 | Tracks have been queued!`);
 });
 
-player.on('trackAdd', (queue, track) => {
-  queue.metadata.send(`🎶 | Track **${track.title}** queued!`);
+player.events.on('disconnect', queue => {
+    queue.metadata.channel.send('❌ | I was manually disconnected from the voice channel, clearing queue!');
 });
 
-player.on('botDisconnect', queue => {
-  queue.metadata.send('❌ | I was manually disconnected from the voice channel, clearing queue!');
+player.events.on('emptyChannel', queue => {
+    queue.metadata.channel.send('❌ | Nobody is in the voice channel, leaving...');
 });
 
-player.on('channelEmpty', queue => {
-  queue.metadata.send('❌ | Nobody is in the voice channel, leaving...');
+player.events.on('emptyQueue', queue => {
+    queue.metadata.channel.send('✅ | Queue finished!');
 });
 
-player.on('queueEnd', queue => {
-  queue.metadata.send('✅ | Queue finished!');
+// For debugging
+/*player.on('debug', async (message) => {
+    console.log(`General player debug event: ${message}`);
 });
+
+player.events.on('debug', async (queue, message) => {
+    console.log(`Player debug event: ${message}`);
+});
+
+player.events.on('error', (queue, error) => {
+    console.log(`General player error event: ${error.message}`);
+    console.log(error);
+});
+
+player.events.on('playerError', (queue, error) => {
+    console.log(`Player error event: ${error.message}`);
+    console.log(error);
+});*/
 
 client.once('ready', async () => {
-  console.log('Ready!');
+    console.log('Ready!');
 });
 
-client.on('ready', function() {
-  client.user.setPresence({
-    activities: [{ name: config.activity, type: Number(config.activityType) }],
-    status: Discord.PresenceUpdateStatus.Online,
-  });
+client.on('ready', function () {
+    client.user.presence.set({
+        activities: [{name: config.activity, type: Number(config.activityType)}],
+        status: Discord.Status.Ready
+    })
 });
 
 client.once('reconnecting', () => {
-  console.log('Reconnecting!');
+    console.log('Reconnecting!');
 });
 
 client.once('disconnect', () => {
-  console.log('Disconnect!');
+    console.log('Disconnect!');
 });
 
 client.on('messageCreate', async message => {
-  if (message.author.bot || !message.guild) return;
-  if (!client.application?.owner) await client.application?.fetch();
+    if (message.author.bot || !message.guild) return;
+    if (!client.application?.owner) await client.application?.fetch();
 
-  if (message.content === '!deploy' && message.author.id === client.application?.owner?.id) {
-    await message.guild.commands
-      .set(client.commands)
-      .then(() => {
-        message.reply('Deployed!');
-      })
-      .catch(err => {
-        message.reply('Could not deploy commands! Make sure the bot has the application.commands permission!');
-        console.error(err);
-      });
-  }
+    if (message.content === '!deploy' && message.author.id === client.application?.owner?.id) {
+        await message.guild.commands
+            .set(client.commands)
+            .then(() => {
+                message.reply('Deployed!');
+            })
+            .catch(err => {
+                message.reply('Could not deploy commands! Make sure the bot has the application.commands permission!');
+                console.error(err);
+            });
+    }
 });
 
 client.on('interactionCreate', async interaction => {
-  const command = client.commands.get(interaction.commandName.toLowerCase());
+    const command = client.commands.get(interaction.commandName.toLowerCase());
 
-  try {
-    if (interaction.commandName == 'ban' || interaction.commandName == 'userinfo') {
-      command.execute(interaction, client);
-    } else {
-      command.execute(interaction, player);
+    try {
+        if (interaction.commandName == 'ban' || interaction.commandName == 'userinfo') {
+            command.execute(interaction, client);
+        } else {
+            command.execute(interaction, player);
+        }
+    } catch (error) {
+        console.error(error);
+        await interaction.followUp({
+            content: 'There was an error trying to execute that command!',
+        });
     }
-  } catch (error) {
-    console.error(error);
-    await interaction.followUp({
-      content: 'There was an error trying to execute that command!',
-    });
-  }
 });
 
 client.login(process.env.DISCORD_TOKEN);

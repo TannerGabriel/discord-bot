@@ -7,15 +7,13 @@ module.exports = {
   options: [
     {
       name: 'query',
-      type: ApplicationCommandOptionType.String,
+      type: ApplicationCommandOptionType.STRING_TYPE,
       description: 'The song you want to play',
       required: true,
     },
   ],
   async execute(interaction) {
     try {
-      const player = useMainPlayer()
-
       if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
         return void interaction.reply({
           content: 'You are not in a voice channel!',
@@ -35,9 +33,10 @@ module.exports = {
 
       await interaction.deferReply();
 
+      const player = useMainPlayer()
       const query = interaction.options.getString('query');
       const searchResult = await player.search(query)
-      if (!searchResult || !searchResult.tracks.length)
+      if (!searchResult.hasTracks())
         return void interaction.followUp({content: 'No results were found!'});
 
       try {
@@ -53,7 +52,7 @@ module.exports = {
 					leaveOnEnd: false,
 					bufferingTimeout: 0,
 					volume: 10,
-					defaultFFmpegFilters: ['lofi', 'bassboost', 'normalizer']
+					//defaultFFmpegFilters: ['lofi', 'bassboost', 'normalizer']
 				}
 			});
 
@@ -61,11 +60,13 @@ module.exports = {
                 content: `⏱ | Loading your ${searchResult.playlist ? 'playlist' : 'track'}...`,
             });
 		} catch (error) {
-            // TODO: Return error via interaction
+            await interaction.editReply({
+                content: 'An error has occurred!'
+            })
 			return console.log(error);
 		}
     } catch (error) {
-      await interaction.followUp({
+      await interaction.reply({
         content: 'There was an error trying to execute that command: ' + error.message,
       });
     }

@@ -38,8 +38,12 @@ module.exports = {
 
     await interaction.deferReply();
     const queue = useQueue(interaction.guild.id)
-    if (!queue || !queue.currentTrack) return void interaction.followUp({content: '❌ | No music is being played!'});
+
+    if (!queue || !queue.currentTrack)
+      return void interaction.followUp({content: '❌ | No music is being played!'});
+
     const queueNumbers = [interaction.options.getInteger('track') - 1, interaction.options.getInteger('position') - 1];
+
     if (queueNumbers[0] > queue.tracks.size || queueNumbers[1] > queue.tracks.size)
       return void interaction.followUp({content: '❌ | Track number greater than queue depth!'});
 
