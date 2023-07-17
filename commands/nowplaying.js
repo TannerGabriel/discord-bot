@@ -1,4 +1,5 @@
 const {GuildMember} = require('discord.js');
+const {useQueue} = require("discord-player");
 
 module.exports = {
   name: 'nowplaying',
@@ -22,19 +23,19 @@ module.exports = {
     }
 
     await interaction.deferReply();
-    const queue = player.getQueue(interaction.guildId);
-    if (!queue || !queue.playing)
+    const queue = useQueue(interaction.guild.id)
+    if (!queue || !queue.currentTrack)
       return void interaction.followUp({
         content: '❌ | No music is being played!',
       });
-    const progress = queue.createProgressBar();
-    const perc = queue.getPlayerTimestamp();
+    const progress = queue.node.createProgressBar()
+    const perc = queue.node.getTimestamp();
 
     return void interaction.followUp({
       embeds: [
         {
           title: 'Now Playing',
-          description: `🎶 | **${queue.current.title}**! (\`${perc.progress}%\`)`,
+          description: `🎶 | **${queue.currentTrack.title}**! (\`${perc.progress}%\`)`,
           fields: [
             {
               name: '\u200b',

@@ -1,5 +1,5 @@
 const {GuildMember, ApplicationCommandOptionType } = require('discord.js');
-const {QueryType} = require('discord-player');
+const {QueryType, useMainPlayer} = require('discord-player');
 
 module.exports = {
   name: 'play',
@@ -7,12 +7,12 @@ module.exports = {
   options: [
     {
       name: 'query',
-      type: ApplicationCommandOptionType.String,
+      type: ApplicationCommandOptionType.STRING_TYPE,
       description: 'The song you want to play',
       required: true,
     },
   ],
-  async execute(interaction, player) {
+  async execute(interaction) {
     try {
       if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
         return void interaction.reply({
@@ -33,43 +33,40 @@ module.exports = {
 
       await interaction.deferReply();
 
+      const player = useMainPlayer()
       const query = interaction.options.getString('query');
-      const searchResult = await player
-        .search(query, {
-          requestedBy: interaction.user,
-          searchEngine: QueryType.AUTO,
-        })
-        .catch(() => {});
-      if (!searchResult || !searchResult.tracks.length)
+      const searchResult = await player.search(query)
+      if (!searchResult.hasTracks())
         return void interaction.followUp({content: 'No results were found!'});
 
-      const queue = await player.createQueue(interaction.guild, {
-        ytdlOptions: {
-				quality: "highest",
-				filter: "audioonly",
-				highWaterMark: 1 << 30,
-				dlChunkSize: 0,
-			},
-        metadata: interaction.channel,
-      });
-
       try {
-        if (!queue.connection) await queue.connect(interaction.member.voice.channel);
-      } catch {
-        void player.deleteQueue(interaction.guildId);
-        return void interaction.followUp({
-          content: 'Could not join your voice channel!',
-        });
-      }
+			const res = await player.play(interaction.member.voice.channel.id, searchResult, {
+				nodeOptions: {
+					metadata: {
+						channel: interaction.channel,
+						client: interaction.guild?.members.me,
+						requestedBy: interaction.user.username
+					},
+					leaveOnEmptyCooldown: 300000,
+					leaveOnEmpty: true,
+					leaveOnEnd: false,
+					bufferingTimeout: 0,
+					volume: 10,
+					//defaultFFmpegFilters: ['lofi', 'bassboost', 'normalizer']
+				}
+			});
 
-      await interaction.followUp({
-        content: `⏱ | Loading your ${searchResult.playlist ? 'playlist' : 'track'}...`,
-      });
-      searchResult.playlist ? queue.addTracks(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
-      if (!queue.playing) await queue.play();
+			await interaction.followUp({
+                content: `⏱ | Loading your ${searchResult.playlist ? 'playlist' : 'track'}...`,
+            });
+		} catch (error) {
+            await interaction.editReply({
+                content: 'An error has occurred!'
+            })
+			return console.log(error);
+		}
     } catch (error) {
-      console.log(error);
-      interaction.followUp({
+      await interaction.reply({
         content: 'There was an error trying to execute that command: ' + error.message,
       });
     }

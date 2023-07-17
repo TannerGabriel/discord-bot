@@ -1,4 +1,5 @@
 const {GuildMember, ApplicationCommandOptionType } = require('discord.js');
+const {useQueue} = require("discord-player");
 
 module.exports = {
   name: 'move',
@@ -36,15 +37,19 @@ module.exports = {
     }
 
     await interaction.deferReply();
-    const queue = player.getQueue(interaction.guildId);
-    if (!queue || !queue.playing) return void interaction.followUp({content: '❌ | No music is being played!'});
+    const queue = useQueue(interaction.guild.id)
+
+    if (!queue || !queue.currentTrack)
+      return void interaction.followUp({content: '❌ | No music is being played!'});
+
     const queueNumbers = [interaction.options.getInteger('track') - 1, interaction.options.getInteger('position') - 1];
-    if (queueNumbers[0] > queue.tracks.length || queueNumbers[1] > queue.tracks.length)
+
+    if (queueNumbers[0] > queue.tracks.size || queueNumbers[1] > queue.tracks.size)
       return void interaction.followUp({content: '❌ | Track number greater than queue depth!'});
 
     try {
-      const track = queue.remove(queueNumbers[0]);
-      queue.insert(track, queueNumbers[1]);
+      const track = queue.node.remove(queueNumbers[0]);
+      queue.node.insert(track, queueNumbers[1]);
       return void interaction.followUp({
         content: `✅ | Moved **${track}**!`,
       });

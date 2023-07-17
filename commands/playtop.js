@@ -1,5 +1,5 @@
 const {GuildMember, ApplicationCommandOptionType} = require('discord.js');
-const {QueryType} = require('discord-player');
+const {QueryType, useQueue} = require('discord-player');
 
 module.exports = {
   name: 'playtop',
@@ -43,20 +43,11 @@ module.exports = {
       if (!searchResult || !searchResult.tracks.length)
         return void interaction.followUp({content: 'No results were found!'});
 
-      const queue = await player.createQueue(interaction.guild, {
-        ytdlOptions: {
-        quality: "highest",
-        filter: "audioonly",
-        highWaterMark: 1 << 25,
-        dlChunkSize: 0,
-      },
-        metadata: interaction.channel,
-      });
+      const queue = useQueue(interaction.guild.id)
 
       try {
         if (!queue.connection) await queue.connect(interaction.member.voice.channel);
       } catch {
-        void player.deleteQueue(interaction.guildId);
         return void interaction.followUp({
           content: 'Could not join your voice channel!',
         });
@@ -65,8 +56,8 @@ module.exports = {
       await interaction.followUp({
         content: `⏱ | Loading your ${searchResult.playlist ? 'playlist' : 'track'}...`,
       });
-      searchResult.playlist ? queue.insert(searchResult.tracks, 0) : queue.insert(searchResult.tracks[0], 0);
-      if (!queue.playing) await queue.play();
+      searchResult.playlist ? queue.node.insert(searchResult.tracks, 0) : queue.node.insert(searchResult.tracks[0], 0);
+      if (!queue.currentTrack) await player.play();
     } catch (error) {
       console.log(error);
       interaction.followUp({

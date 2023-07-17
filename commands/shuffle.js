@@ -1,4 +1,5 @@
 const {GuildMember} = require('discord.js');
+const {useQueue} = require("discord-player");
 
 module.exports = {
   name: 'shuffle',
@@ -22,17 +23,17 @@ module.exports = {
     }
 
     await interaction.deferReply();
-    const queue = player.getQueue(interaction.guildId);
-    if (!queue || !queue.playing) return void interaction.followUp({content: '❌ | No music is being played!'});
+    const queue = useQueue(interaction.guild.id)
+    if (!queue || !queue.currentTrack) return void interaction.followUp({content: '❌ | No music is being played!'});
     try {
-      queue.shuffle();
-      trimString = (str, max) => (str.length > max ? `${str.slice(0, max - 3)}...` : str);
+      queue.tracks.shuffle();
+      const trimString = (str, max) => (str.length > max ? `${str.slice(0, max - 3)}...` : str);
       return void interaction.followUp({
         embeds: [
           {
             title: 'Now Playing',
             description: trimString(
-              `The Current song playing is 🎶 | **${queue.current.title}**! \n 🎶 | ${queue}! `,
+              `The Current song playing is 🎶 | **${queue.currentTrack.title}**! \n 🎶 | ${queue}! `,
               4095,
             ),
           },
