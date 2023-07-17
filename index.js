@@ -6,7 +6,6 @@ import Discord, {ActivityType}  from 'discord.js';
 import Client from './client/Client.js';
 import config from './config.json' assert { type: "json" };
 import { Player } from 'discord-player';
-import {ActivityType} = 
 const client = new Client();
 client.commands = new Discord.Collection();
 
