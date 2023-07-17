@@ -1,5 +1,6 @@
 import {GuildMember, ApplicationCommandOptionType} from 'discord.js';
-import {QueueRepeatMode} from 'discord-player';
+import {QueueRepeatMode, useQueue} from 'discord-player';
+
 
 export default{
   name: 'loop',
@@ -51,17 +52,17 @@ export default{
 
       await interaction.deferReply();
 
-      const queue = player.getQueue(interaction.guildId);
-      if (!queue || !queue.playing) {
+      const queue = useQueue(interaction.guild.id)
+      if (!queue || !queue.currentTrack) {
         return void interaction.followUp({content: '❌ | No music is being played!'});
       }
 
       const loopMode = interaction.options.getInteger('mode');
-      const success = queue.setRepeatMode(loopMode);
+      queue.setRepeatMode(loopMode);
       const mode = loopMode === QueueRepeatMode.TRACK ? '🔂' : loopMode === QueueRepeatMode.QUEUE ? '🔁' : '▶';
 
       return void interaction.followUp({
-        content: success ? `${mode} | Updated loop mode!` : '❌ | Could not update loop mode!',
+        content: `${mode} | Updated loop mode!`,
       });
     } catch (error) {
       console.log(error);

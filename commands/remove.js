@@ -1,4 +1,6 @@
 import {GuildMember, ApplicationCommandOptionType} from 'discord.js';
+import {useQueue{ from 'discord-player';
+
 
 export default{
   name: 'remove',
@@ -30,12 +32,12 @@ export default{
     }
 
     await interaction.deferReply();
-    const queue = player.getQueue(interaction.guildId);
-    if (!queue || !queue.playing) return void interaction.followUp({content: '❌ | No music is being played!'});
+    const queue = useQueue(interaction.guild.id);
+    if (!queue || !queue.currentTrack) return void interaction.followUp({content: '❌ | No music is being played!'});
     const number = interaction.options.getInteger('number') - 1;
-    if (number > queue.tracks.length)
+    if (number > queue.tracks.size)
       return void interaction.followUp({content: '❌ | Track number greater than queue depth!'});
-    const removedTrack = queue.remove(number);
+    const removedTrack = queue.node.remove(number);
     return void interaction.followUp({
       content: removedTrack ? `✅ | Removed **${removedTrack}**!` : '❌ | Something went wrong!',
     });

@@ -1,4 +1,6 @@
 import {GuildMember} from 'discord.js';
+import {useQueue} from 'discord-player';
+
 
 export default{
   name: 'skip',
@@ -22,10 +24,12 @@ export default{
     }
 
     await interaction.deferReply();
-    const queue = player.getQueue(interaction.guildId);
-    if (!queue || !queue.playing) return void interaction.followUp({content: '❌ | No music is being played!'});
-    const currentTrack = queue.current;
-    const success = queue.skip();
+
+    const queue = useQueue(interaction.guild.id)
+    if (!queue || !queue.currentTrack) return void interaction.followUp({content: '❌ | No music is being played!'});
+    const currentTrack = queue.currentTrack;
+
+    const success = queue.node.skip()
     return void interaction.followUp({
       content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!',
     });
