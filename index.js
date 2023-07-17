@@ -40,17 +40,8 @@ player.extractors.loadDefault().then(r => console.log('Extractors loaded success
     });
 });*/
 
-player.events.on('error', (queue, error) => {
-    console.log(`[${queue.guild.name}] Error emitted from the queue: ${error.message}`);
-});
-
-
 player.events.on('audioTrackAdd', (queue, song) => {
     queue.metadata.channel.send(`🎶 | Song **${song.title}** added to the queue!`);
-});
-
-player.events.on('error', (queue, error) => {
-    console.log(`[${queue.guild.name}] Error emitted from the connection: ${error.message}`);
 });
 
 player.events.on('playerStart', (queue, track) => {
@@ -73,6 +64,10 @@ player.events.on('emptyQueue', queue => {
     queue.metadata.channel.send('✅ | Queue finished!');
 });
 
+player.events.on('error', (queue, error) => {
+    console.log(`[${queue.guild.name}] Error emitted from the connection: ${error.message}`);
+});
+
 // For debugging
 /*player.on('debug', async (message) => {
     console.log(`General player debug event: ${message}`);
@@ -82,21 +77,13 @@ player.events.on('debug', async (queue, message) => {
     console.log(`Player debug event: ${message}`);
 });
 
-player.events.on('error', (queue, error) => {
-    console.log(`General player error event: ${error.message}`);
-    console.log(error);
-});
-
 player.events.on('playerError', (queue, error) => {
     console.log(`Player error event: ${error.message}`);
     console.log(error);
 });*/
 
-client.once('ready', async () => {
-    console.log('Ready!');
-});
-
 client.on('ready', function () {
+    console.log('Ready!');
     client.user.presence.set({
         activities: [{name: config.activity, type: Number(config.activityType)}],
         status: Discord.Status.Ready
