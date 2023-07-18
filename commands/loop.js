@@ -30,7 +30,7 @@ module.exports = {
       ],
     },
   ],
-  async execute(interaction, player) {
+  async execute(interaction) {
     try {
       if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
         return void interaction.reply({

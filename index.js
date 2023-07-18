@@ -122,7 +122,7 @@ client.on('interactionCreate', async interaction => {
         if (interaction.commandName == 'ban' || interaction.commandName == 'userinfo') {
             command.execute(interaction, client);
         } else {
-            command.execute(interaction, player);
+            command.execute(interaction);
         }
     } catch (error) {
         console.error(error);

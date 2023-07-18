@@ -1,5 +1,5 @@
 const {GuildMember, ApplicationCommandOptionType} = require('discord.js');
-const {QueryType, useQueue} = require('discord-player');
+const {QueryType, useQueue, useMainPlayer} = require('discord-player');
 
 module.exports = {
   name: 'playtop',
@@ -12,7 +12,7 @@ module.exports = {
       required: true,
     },
   ],
-  async execute(interaction, player) {
+  async execute(interaction) {
     try {
       if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
         return void interaction.reply({
@@ -33,6 +33,7 @@ module.exports = {
 
       await interaction.deferReply();
 
+      const player = useMainPlayer()
       const query = interaction.options.getString('query');
       const searchResult = await player
         .search(query, {

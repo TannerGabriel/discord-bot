@@ -18,7 +18,7 @@ module.exports = {
       required: true,
     },
   ],
-  async execute(interaction, player) {
+  async execute(interaction) {
     if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
       return void interaction.reply({
         content: 'You are not in a voice channel!',
