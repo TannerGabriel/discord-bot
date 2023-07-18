@@ -45,7 +45,7 @@ player.events.on('audioTrackAdd', (queue, song) => {
 });
 
 player.events.on('playerStart', (queue, track) => {
-    queue.metadata.channel.send(`▶ | Started playing: **${track.title}** in **${queue.metadata.channel}**!`);
+    queue.metadata.channel.send(`▶ | Started playing: **${track.title}**!`);
 });
 
 player.events.on('audioTracksAdd', (queue, track) => {

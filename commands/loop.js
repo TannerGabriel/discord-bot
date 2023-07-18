@@ -54,7 +54,7 @@ module.exports = {
             });
         } catch (error) {
             console.log(error);
-            interaction.followUp({
+            return void interaction.followUp({
                 content: 'There was an error trying to execute that command: ' + error.message,
             });
         }

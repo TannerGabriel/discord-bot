@@ -8,7 +8,7 @@ module.exports = {
     options: [
         {
             name: 'query',
-            type: ApplicationCommandOptionType.String,
+            type: ApplicationCommandOptionType.STRING_TYPE,
             description: 'The song you want to play',
             required: true,
         },
@@ -51,7 +51,7 @@ module.exports = {
             if (!queue.currentTrack) await player.play();
         } catch (error) {
             console.log(error);
-            interaction.followUp({
+            await interaction.followUp({
                 content: 'There was an error trying to execute that command: ' + error.message,
             });
         }
