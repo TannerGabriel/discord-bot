@@ -1,5 +1,6 @@
 const {GuildMember, ApplicationCommandOptionType } = require('discord.js');
 const {useQueue} = require("discord-player");
+const {isInVoiceChannel} = require("../utils/voicechannel");
 
 module.exports = {
   name: 'remove',
@@ -12,22 +13,10 @@ module.exports = {
       required: true,
     },
   ],
-  async execute(interaction, player) {
-    if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
-      return void interaction.reply({
-        content: 'You are not in a voice channel!',
-        ephemeral: true,
-      });
-    }
-
-    if (
-      interaction.guild.members.me.voice.channelId &&
-      interaction.member.voice.channelId !== interaction.guild.members.me.voice.channelId
-    ) {
-      return void interaction.reply({
-        content: 'You are not in my voice channel!',
-        ephemeral: true,
-      });
+  async execute(interaction) {
+    const inVoiceChannel = isInVoiceChannel(interaction)
+    if (!inVoiceChannel) {
+        return
     }
 
     await interaction.deferReply();

@@ -45,7 +45,7 @@ player.events.on('audioTrackAdd', (queue, song) => {
 });
 
 player.events.on('playerStart', (queue, track) => {
-    queue.metadata.channel.send(`▶ | Started playing: **${track.title}** in **${queue.metadata.channel}**!`);
+    queue.metadata.channel.send(`▶ | Started playing: **${track.title}**!`);
 });
 
 player.events.on('audioTracksAdd', (queue, track) => {
@@ -122,7 +122,7 @@ client.on('interactionCreate', async interaction => {
         if (interaction.commandName == 'ban' || interaction.commandName == 'userinfo') {
             command.execute(interaction, client);
         } else {
-            command.execute(interaction, player);
+            command.execute(interaction);
         }
     } catch (error) {
         console.error(error);
