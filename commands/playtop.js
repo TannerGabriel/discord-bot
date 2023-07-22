@@ -8,7 +8,7 @@ module.exports = {
     options: [
         {
             name: 'query',
-            type: ApplicationCommandOptionType.STRING_TYPE,
+            type: ApplicationCommandOptionType.String,
             description: 'The song you want to play',
             required: true,
         },
