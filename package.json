@@ -16,18 +16,18 @@
   "author": "Gabriel Tanner",
   "license": "MIT",
   "dependencies": {
-    "@discord-player/extractor": "^4.4.0",
+    "@discord-player/extractor": "^4.4.1",
     "@discordjs/opus": "^0.9.0",
-    "discord-player": "^6.6.1",
-    "discord.js": "^14.11.0",
+    "discord-player": "^6.6.2",
+    "discord.js": "^14.12.1",
     "dotenv": "^16.3.1",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
-    "opusscript": "^0.0.8",
+    "opusscript": "0.0.8",
     "prism-media": "^1.3.5",
     "ytdl-core": "^4.11.5"
   },
   "devDependencies": {
-    "prettier": "3.0.0"
+    "prettier": "3.0.2"
   }
 }
