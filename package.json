@@ -28,6 +28,6 @@
     "ytdl-core": "^4.11.5"
   },
   "devDependencies": {
-    "prettier": "3.0.0"
+    "prettier": "3.0.2"
   }
 }
