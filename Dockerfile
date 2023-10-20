@@ -1,4 +1,4 @@
-FROM node:18 AS build
+FROM node:21 AS build
 WORKDIR /app
 COPY . /app
 COPY --from=mwader/static-ffmpeg:5.1.2 /ffmpeg /ffmpeg
