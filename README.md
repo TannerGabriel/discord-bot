@@ -54,7 +54,11 @@ After cloning the project and installing all dependencies, you need to add your 
 
 ### Changing the status
 
-You can change the status of your discord bot by editing the `activity` and `activityType` variables inside of the `config.json` file. `activityType` needs to be set to an integer with the following [options](https://discord-api-types.dev/api/discord-api-types-v10/enum/ActivityType).
+You can change the status of your discord bot by editing the `activity` and `activityType` variables inside the `config.json` file. `activityType` needs to be set to an integer with the following [options](https://discord-api-types.dev/api/discord-api-types-v10/enum/ActivityType).
+
+### Changing the default volume
+
+The default volume can be adjusted by changing the volume variable inside the `config.json` file. If you only want to adjust the volume for a single song/playlist instead, use the volume command instead.
 
 ### Starting the application
 

@@ -1,6 +1,7 @@
-const {GuildMember, ApplicationCommandOptionType} = require('discord.js');
-const {QueryType, useMainPlayer} = require('discord-player');
+const {ApplicationCommandOptionType} = require('discord.js');
+const {useMainPlayer} = require('discord-player');
 const {isInVoiceChannel} = require("../utils/voicechannel");
+const config = require('./config.json');
 
 module.exports = {
     name: 'play',
@@ -29,7 +30,7 @@ module.exports = {
                 return void interaction.followUp({content: 'No results were found!'});
 
             try {
-                const res = await player.play(interaction.member.voice.channel.id, searchResult, {
+                await player.play(interaction.member.voice.channel.id, searchResult, {
                     nodeOptions: {
                         metadata: {
                             channel: interaction.channel,
@@ -40,7 +41,7 @@ module.exports = {
                         leaveOnEmpty: true,
                         leaveOnEnd: false,
                         bufferingTimeout: 0,
-                        volume: 10,
+                        volume: config.volume || 10,
                         //defaultFFmpegFilters: ['lofi', 'bassboost', 'normalizer']
                     }
                 });
