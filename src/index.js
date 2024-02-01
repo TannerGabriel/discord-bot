@@ -35,20 +35,6 @@ player.extractors
   .loadDefault()
   .then((r) => console.log('Extractors loaded successfully'));
 
-// Still needs to be refactored for 0.6
-// player.events.on("connection", function (queue) {
-//   const connection = queue.connection;
-
-//   const networkStateChangeHandler = (oldState, newState) => {
-//     const oldNetworking = Reflect.get(oldState, "networking");
-//     const newNetworking = Reflect.get(newState, "networking");
-
-//     const udp = Reflect.get(newState, "udp");
-
-//     if (udp?.keepAliveInterval) clearInterval(udp.keepAliveInterval);
-//   };
-// });
-
 // Event listeners for player events
 let queueMessage = null;
 
