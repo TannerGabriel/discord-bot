@@ -5,7 +5,8 @@
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
-    "dev": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "prettier --write \"**/*.js\""
   },
