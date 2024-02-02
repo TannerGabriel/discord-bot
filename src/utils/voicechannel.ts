@@ -1,4 +1,4 @@
-const { GuildMember } = require('discord.js');
+import { GuildMember } from 'discord.js';
 
 const isInVoiceChannel = (interaction) => {
   if (
@@ -27,4 +27,5 @@ const isInVoiceChannel = (interaction) => {
   return true;
 };
 
-exports.isInVoiceChannel = isInVoiceChannel;
+const _isInVoiceChannel = isInVoiceChannel;
+export { _isInVoiceChannel as isInVoiceChannel };

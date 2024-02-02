@@ -1,27 +1,29 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
+import Client from './client/Client.js';
+import activityJson from '../config.json' with { type: 'json' };
+import { Collection, Status } from 'discord.js';
+import { dirname, join } from 'path';
+import { readdirSync } from 'fs';
 
-const Client = require('./client/Client');
-const config = require('../config.json');
-const Discord = require('discord.js');
-const path = require('path');
-const fs = require('fs');
-
-const { Player } = require('discord-player');
+const { activity, activityType } = activityJson;
+import { Player } from 'discord-player';
 
 // Initialize Discord client
 const client = new Client();
-client.commands = new Discord.Collection();
+client.commands = new Collection();
 
 // // Load commands
-const commandsDir = path.join(__dirname, 'commands');
-const commandFiles = fs
-  .readdirSync(commandsDir)
-  .filter((file) => file.endsWith('.js'));
+const __dirname = dirname(import.meta.url).replace('file://', '');
+const commandsDir = join(__dirname, 'commands');
+const commandFiles = readdirSync(commandsDir).filter((file) =>
+  file.endsWith('.js')
+);
 console.log(commandFiles);
 
 for (const file of commandFiles) {
-  const filePath = path.join(commandsDir, file);
-  const command = require(filePath);
+  const filePath = join(commandsDir, file);
+  const command = await import(`${filePath}`);
   console.log(command);
 
   client.commands.set(command.name, command);
@@ -109,10 +111,8 @@ client.on('ready', () => {
   console.log('Bot is ready!');
   try {
     client.user.presence.set({
-      activities: [
-        { name: config.activity, type: Number(config.activityType) }
-      ],
-      status: Discord.Status.Ready
+      activities: [{ name: activity, type: Number(activityType) }],
+      status: Status.Ready
     });
   } catch (error) {
     console.error(error.message);
