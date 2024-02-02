@@ -1,35 +1,35 @@
-const { GuildMember, ApplicationCommandOptionType } = require("discord.js");
-const { QueueRepeatMode, useQueue } = require("discord-player");
-const { isInVoiceChannel } = require("../utils/voicechannel");
+const { GuildMember, ApplicationCommandOptionType } = require('discord.js');
+const { QueueRepeatMode, useQueue } = require('discord-player');
+const { isInVoiceChannel } = require('../utils/voicechannel');
 
 module.exports = {
-  name: "loop",
-  description: "Sets loop mode",
+  name: 'loop',
+  description: 'Sets loop mode',
   options: [
     {
-      name: "mode",
+      name: 'mode',
       type: ApplicationCommandOptionType.Integer,
-      description: "Loop type",
+      description: 'Loop type',
       required: true,
       choices: [
         {
-          name: "Off",
-          value: QueueRepeatMode.OFF,
+          name: 'Off',
+          value: QueueRepeatMode.OFF
         },
         {
-          name: "Track",
-          value: QueueRepeatMode.TRACK,
+          name: 'Track',
+          value: QueueRepeatMode.TRACK
         },
         {
-          name: "Queue",
-          value: QueueRepeatMode.QUEUE,
+          name: 'Queue',
+          value: QueueRepeatMode.QUEUE
         },
         {
-          name: "Autoplay",
-          value: QueueRepeatMode.AUTOPLAY,
-        },
-      ],
-    },
+          name: 'Autoplay',
+          value: QueueRepeatMode.AUTOPLAY
+        }
+      ]
+    }
   ],
   async execute(interaction) {
     try {
@@ -42,21 +42,29 @@ module.exports = {
 
       const queue = useQueue(interaction.guild.id);
       if (!queue || !queue.currentTrack) {
-        return void interaction.followUp({ content: "❌ | No music is being played!" });
+        return void interaction.followUp({
+          content: '❌ | No music is being played!'
+        });
       }
 
-      const loopMode = interaction.options.getInteger("mode");
+      const loopMode = interaction.options.getInteger('mode');
       queue.setRepeatMode(loopMode);
-      const mode = loopMode === QueueRepeatMode.TRACK ? "🔂" : loopMode === QueueRepeatMode.QUEUE ? "🔁" : "▶";
+      const mode =
+        loopMode === QueueRepeatMode.TRACK
+          ? '🔂'
+          : loopMode === QueueRepeatMode.QUEUE
+          ? '🔁'
+          : '▶';
 
       return void interaction.followUp({
-        content: `${mode} | Updated loop mode!`,
+        content: `${mode} | Updated loop mode!`
       });
     } catch (error) {
       console.log(error);
       return void interaction.followUp({
-        content: "There was an error trying to execute that command: " + error.message,
+        content:
+          'There was an error trying to execute that command: ' + error.message
       });
     }
-  },
+  }
 };
