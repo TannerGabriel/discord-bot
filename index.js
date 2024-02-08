@@ -121,9 +121,6 @@ client.on('interactionCreate', async interaction => {
     try {
         if (interaction.commandName == 'ban' || interaction.commandName == 'userinfo') {
             command.execute(interaction, client);
-        } else if (interaction.commandName == 'volume' || interaction.commandName == 'play') {
-            command.execute(interaction);
-            // command.execute(interaction, config)
         } else {
             command.execute(interaction);
         }

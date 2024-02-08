@@ -15,7 +15,6 @@ module.exports = {
     ],
     async execute(interaction) {
         const {default: Conf} = await import('conf');
-        const inVoiceChannel = isInVoiceChannel(interaction);
 
         await interaction.deferReply();
 
@@ -29,6 +28,7 @@ module.exports = {
 
         // Set the volume of the current queue
         const queue = useQueue(interaction.guild.id);
+        const inVoiceChannel = isInVoiceChannel(interaction);
         if (inVoiceChannel && queue && queue.currentTrack) queue.node.setVolume(volume);
 
         return void interaction.followUp({
