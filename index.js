@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 const fs = require('fs');
 const Discord = require('discord.js');
@@ -22,7 +22,7 @@ console.log(client.commands);
 
 const player = new Player(client);
 
-player.extractors.loadDefault().then(r => console.log('Extractors loaded successfully'))
+player.extractors.loadDefault().then(r => console.log('Extractors loaded successfully'));
 
 // Still needs to be refactored for 0.6
 /*player.events.on('connection', (queue) => {
@@ -86,8 +86,8 @@ client.on('ready', function () {
     console.log('Ready!');
     client.user.presence.set({
         activities: [{name: config.activity, type: Number(config.activityType)}],
-        status: Discord.Status.Ready
-    })
+        status: Discord.Status.Ready,
+    });
 });
 
 client.once('reconnecting', () => {
