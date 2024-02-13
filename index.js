@@ -6,8 +6,6 @@ const Client = require('./client/Client');
 const config = require('./config.json');
 const {Player} = require('discord-player');
 
-const {ActivityType} = require('discord.js');
-
 const client = new Client();
 client.commands = new Discord.Collection();
 
@@ -62,6 +60,8 @@ player.events.on('emptyChannel', queue => {
 
 player.events.on('emptyQueue', queue => {
     queue.metadata.channel.send('✅ | Queue finished!');
+    // Delete queue and disconnect from voice channel
+    queue.delete();
 });
 
 player.events.on('error', (queue, error) => {
