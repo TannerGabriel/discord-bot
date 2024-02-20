@@ -14,11 +14,15 @@ module.exports = {
         const queue = useQueue(interaction.guild.id)
         if (typeof (queue) != 'undefined') {
             const trimString = (str, max) => ((str.length > max) ? `${str.slice(0, max - 3)}...` : str);
+			let trackList = "";
+			queue.tracks.data.forEach((track)=>{
+				trackList += trimString(`🎶 | ${track.title}!\n `, 4095);
+			});
             return void interaction.reply({
                 embeds: [
                     {
                         title: 'Now Playing',
-                        description: trimString(`The Current song playing is 🎶 | **${queue.currentTrack.title}**! \n 🎶 | ${queue}! `, 4095),
+                        description: trimString(`The Current song playing is 🎶 | **${queue.currentTrack.title}**! \n 🎶 | ${trackList} `, 4095),
                     }
                 ]
             })
@@ -29,3 +33,4 @@ module.exports = {
         }
     }
 }
+
