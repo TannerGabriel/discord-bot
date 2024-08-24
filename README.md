@@ -42,6 +42,15 @@ npm install
  echo "DISCORD_TOKEN='INSERT_YOUR_TOKEN_HERE'" > .env
 ```
 
+### Other environment variables
+
+Currently we also need to set the `DP_FORCE_YTDL_MOD` environment variable to override `ytdl-core` for the `discord-player`.
+
+```
+DISCORD_TOKEN=INSERT_YOUR_TOKEN_HERE
+DP_FORCE_YTDL_MOD="@distube/ytdl-core"
+```
+
 ### Required permissions
 
 Make sure that your bot has the `applications.commands` application scope enabled, which can be found under the `OAuth2` tab on the [developer portal](https://discord.com/developers/applications/)
