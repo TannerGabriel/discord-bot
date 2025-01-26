@@ -17,7 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "@discord-player/extractor": "^4.4.1",
-    "@discordjs/opus": "^0.9.0",
+    "@discordjs/opus": "^0.10.0",
     "conf": "^12.0.0",
     "discord-player": "^6.6.2",
     "discord.js": "^14.12.1",
