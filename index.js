@@ -1,5 +1,5 @@
 require('dotenv').config();
-
+const ashour = "ALO"
 const fs = require('fs');
 const Discord = require('discord.js');
 const Client = require('./client/Client');
